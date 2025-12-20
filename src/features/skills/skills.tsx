@@ -55,6 +55,7 @@ const SKILL_CATEGORIES: SkillCategoryData[] = [
     skills: [
       { name: "Español", level: 100 },
       { name: "Inglés", level: 75 },
+      { name: "Italiano", level: 25 },
     ],
   },
 ]
