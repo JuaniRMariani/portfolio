@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# juanirmariani.com
 
-## Getting Started
+My personal portfolio, designed as an **interactive Claude Code session** — because agentic AI tooling is genuinely how I work, the site presents itself as one: typed commands, expandable tool calls (`● Task(cuonti)`), a blinking block cursor, and section headers like `$ git log --work`.
 
-First, run the development server:
+**Live: [juanirmariani.com](https://juanirmariani.com)** · [/en](https://juanirmariani.com/en) · [/es](https://juanirmariani.com/es)
+
+## Stack
+
+- **Next.js 16** (App Router, static export) · **React 19** · **TypeScript**
+- **Tailwind CSS v4** (OKLCH tokens, CSS-only grain/scanlines/glow effects)
+- **Motion** for the terminal reveal animations
+- Fonts: [Departure Mono](https://departuremono.com) (display) · [Commit Mono](https://commitmono.com) (terminal body) · Schibsted Grotesk (prose)
+- Deployed on **Cloudflare Workers** (static assets, `wrangler.jsonc`)
+
+## Design principles
+
+- **SEO-first animation**: every word lives in the prerendered HTML; the typing effect is a progressive reveal layered on top. No JS, crawlers, and `prefers-reduced-motion` users all get the full content instantly. There's also a "skip animation" button.
+- **Bilingual by routes**: `/en` and `/es` are two statically generated pages with reciprocal hreflang — not a client-side toggle.
+- **Typed content layer**: all copy lives in `src/content/` as `{ en, es }` fields, so the two languages can't drift apart.
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev        # http://localhost:3000
+pnpm build      # static export to out/
+pnpm lint
+pnpm typecheck
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with [Claude Code](https://claude.com/claude-code) — fittingly.
