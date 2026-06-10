@@ -1,82 +1,41 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
-
-/* Nueva paleta: azul oscuro primario, naranja acento */
+/* ─── Claude Code session theme — deep dark + electric coral ─── */
 :root {
-  --background: oklch(0.13 0.02 250);
-  --foreground: oklch(0.95 0.01 250);
-  --card: oklch(0.17 0.02 250);
-  --card-foreground: oklch(0.95 0.01 250);
-  --popover: oklch(0.17 0.02 250);
-  --popover-foreground: oklch(0.95 0.01 250);
-  --primary: oklch(0.7 0.18 55);
-  --primary-foreground: oklch(0.13 0.02 250);
-  --secondary: oklch(0.22 0.02 250);
-  --secondary-foreground: oklch(0.95 0.01 250);
-  --muted: oklch(0.25 0.02 250);
-  --muted-foreground: oklch(0.65 0.02 250);
-  --accent: oklch(0.7 0.18 55);
-  --accent-foreground: oklch(0.13 0.02 250);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.28 0.02 250);
-  --input: oklch(0.22 0.02 250);
-  --ring: oklch(0.7 0.18 55);
-  --chart-1: oklch(0.7 0.18 55);
-  --chart-2: oklch(0.5 0.15 250);
-  --chart-3: oklch(0.6 0.12 250);
-  --chart-4: oklch(0.75 0.15 55);
-  --chart-5: oklch(0.4 0.1 250);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.15 0.02 250);
-  --sidebar-foreground: oklch(0.95 0.01 250);
-  --sidebar-primary: oklch(0.7 0.18 55);
-  --sidebar-primary-foreground: oklch(0.13 0.02 250);
-  --sidebar-accent: oklch(0.22 0.02 250);
-  --sidebar-accent-foreground: oklch(0.95 0.01 250);
-  --sidebar-border: oklch(0.28 0.02 250);
-  --sidebar-ring: oklch(0.7 0.18 55);
-}
+  --background: oklch(0.12 0.01 260);
+  --foreground: oklch(0.94 0.005 260);
+  --card: oklch(0.155 0.012 260);
+  --card-foreground: oklch(0.94 0.005 260);
+  --popover: oklch(0.155 0.012 260);
+  --popover-foreground: oklch(0.94 0.005 260);
+  --primary: oklch(0.72 0.19 45);
+  --primary-foreground: oklch(0.12 0.01 260);
+  --secondary: oklch(0.2 0.015 260);
+  --secondary-foreground: oklch(0.94 0.005 260);
+  --muted: oklch(0.22 0.015 260);
+  --muted-foreground: oklch(0.68 0.015 260);
+  --accent: oklch(0.72 0.19 45);
+  --accent-foreground: oklch(0.12 0.01 260);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.94 0.005 260);
+  --border: oklch(0.25 0.015 260);
+  --input: oklch(0.2 0.015 260);
+  --ring: oklch(0.72 0.19 45);
+  --radius: 0.5rem;
 
-.dark {
-  --background: oklch(0.13 0.02 250);
-  --foreground: oklch(0.95 0.01 250);
-  --card: oklch(0.17 0.02 250);
-  --card-foreground: oklch(0.95 0.01 250);
-  --popover: oklch(0.17 0.02 250);
-  --popover-foreground: oklch(0.95 0.01 250);
-  --primary: oklch(0.7 0.18 55);
-  --primary-foreground: oklch(0.13 0.02 250);
-  --secondary: oklch(0.22 0.02 250);
-  --secondary-foreground: oklch(0.95 0.01 250);
-  --muted: oklch(0.25 0.02 250);
-  --muted-foreground: oklch(0.65 0.02 250);
-  --accent: oklch(0.7 0.18 55);
-  --accent-foreground: oklch(0.13 0.02 250);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.28 0.02 250);
-  --input: oklch(0.22 0.02 250);
-  --ring: oklch(0.7 0.18 55);
-  --chart-1: oklch(0.7 0.18 55);
-  --chart-2: oklch(0.5 0.15 250);
-  --chart-3: oklch(0.6 0.12 250);
-  --chart-4: oklch(0.75 0.15 55);
-  --chart-5: oklch(0.4 0.1 250);
-  --sidebar: oklch(0.15 0.02 250);
-  --sidebar-foreground: oklch(0.95 0.01 250);
-  --sidebar-primary: oklch(0.7 0.18 55);
-  --sidebar-primary-foreground: oklch(0.13 0.02 250);
-  --sidebar-accent: oklch(0.22 0.02 250);
-  --sidebar-accent-foreground: oklch(0.95 0.01 250);
-  --sidebar-border: oklch(0.28 0.02 250);
-  --sidebar-ring: oklch(0.7 0.18 55);
+  /* terminal palette */
+  --term-green: oklch(0.75 0.17 150);
+  --term-red: oklch(0.65 0.2 25);
+  --term-yellow: oklch(0.8 0.15 90);
+  --term-dim: oklch(0.55 0.015 260);
+  --prompt: var(--primary);
 }
 
 @theme inline {
-  --font-sans: "Inter", "Inter Fallback";
-  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-commit), ui-monospace, "Cascadia Code", monospace;
+  --font-display: var(--font-departure), var(--font-commit), ui-monospace, monospace;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -96,23 +55,15 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
+  --color-term-green: var(--term-green);
+  --color-term-red: var(--term-red);
+  --color-term-yellow: var(--term-yellow);
+  --color-term-dim: var(--term-dim);
+  --color-prompt: var(--prompt);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 @layer base {
@@ -122,13 +73,91 @@
   body {
     @apply bg-background text-foreground;
   }
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
 }
 
-/* Scroll suave y selección personalizada */
-html {
-  scroll-behavior: smooth;
+/* ─── Progressive reveal (SEO-first) ───
+   Content is fully present in static HTML. Only when JS is confirmed
+   (html[data-js], set by an inline script) AND motion is allowed do we
+   hide reveal targets so the terminal animation can play. No JS or
+   reduced motion -> everything visible, always. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js] [data-reveal] {
+    opacity: 0;
+  }
+}
+
+/* ─── Effects ─── */
+
+/* film grain over everything, very low opacity */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* subtle CRT scanlines for terminal frames */
+.scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    oklch(1 0 0 / 0.012) 2px,
+    oklch(1 0 0 / 0.012) 4px
+  );
+}
+
+/* phosphor glow for accent text */
+.glow {
+  text-shadow: 0 0 10px oklch(0.72 0.19 45 / 0.45);
+}
+
+.glow-green {
+  text-shadow: 0 0 10px oklch(0.75 0.17 150 / 0.4);
+}
+
+/* ambient gradient mesh behind the hero */
+.hero-mesh {
+  background:
+    radial-gradient(ellipse 60% 45% at 18% 8%, oklch(0.72 0.19 45 / 0.09), transparent 65%),
+    radial-gradient(ellipse 50% 40% at 85% 25%, oklch(0.55 0.12 280 / 0.07), transparent 60%),
+    radial-gradient(ellipse 45% 35% at 55% 90%, oklch(0.75 0.17 150 / 0.05), transparent 60%);
+}
+
+/* blinking block cursor */
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: blink 1.06s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-blink {
+    animation: none;
+  }
 }
 
 ::selection {
-  background: oklch(0.7 0.18 55 / 0.3);
+  background: oklch(0.72 0.19 45 / 0.35);
+  color: oklch(0.97 0.005 260);
 }

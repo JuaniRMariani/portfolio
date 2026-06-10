@@ -1,13 +1,33 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { Inter, Geist_Mono } from "next/font/google"
+import { Schibsted_Grotesk } from "next/font/google"
+import localFont from "next/font/local"
 import { Analytics } from "@vercel/analytics/next"
 import { LOCALES, ui, tr, SITE_URL, type Locale } from "@/content"
 import "../globals.css"
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" })
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" })
+const schibsted = Schibsted_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-schibsted",
+  display: "swap",
+})
+
+const commitMono = localFont({
+  src: [
+    { path: "../../fonts/commit-mono-400.woff2", weight: "400", style: "normal" },
+    { path: "../../fonts/commit-mono-700.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-commit",
+  display: "swap",
+})
+
+const departureMono = localFont({
+  src: "../../fonts/departure-mono-400.woff2",
+  weight: "400",
+  variable: "--font-departure",
+  display: "swap",
+})
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }))
@@ -48,7 +68,12 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
   return (
     <html lang={locale}>
-      <body className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}>
+      <body
+        className={`${schibsted.variable} ${commitMono.variable} ${departureMono.variable} font-mono antialiased`}
+      >
+        {/* Marks JS availability before paint: reveal targets are only
+            hidden for the terminal animation when this attribute exists. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.dataset.js=''" }} />
         {children}
         <Analytics />
       </body>
