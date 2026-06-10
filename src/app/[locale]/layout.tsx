@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Schibsted_Grotesk } from "next/font/google"
 import localFont from "next/font/local"
-import { Analytics } from "@vercel/analytics/next"
 import { LOCALES, ui, tr, SITE_URL, type Locale } from "@/content"
 import "../globals.css"
 
@@ -110,7 +109,6 @@ export default async function RootLayout({ children, params }: LayoutProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         {children}
-        <Analytics />
       </body>
     </html>
   )
