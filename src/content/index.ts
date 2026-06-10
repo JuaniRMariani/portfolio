@@ -7,4 +7,4 @@ export { ui } from "./ui"
 export { tr, LOCALES, DEFAULT_LOCALE } from "./types"
 export type { Locale, L, Profile, Project, Experience, SkillGroup, AiEngineering } from "./types"
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://juanirmariani.com"
