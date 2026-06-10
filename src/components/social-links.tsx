@@ -1,5 +1,6 @@
 import type React from "react"
-import { Github, Linkedin, Mail } from "lucide-react"
+import { Mail } from "lucide-react"
+import { GitHubIcon, LinkedInIcon } from "./icons"
 
 interface SocialLink {
   icon: React.ElementType
@@ -8,8 +9,8 @@ interface SocialLink {
 }
 
 const SOCIAL_LINKS: SocialLink[] = [
-  { icon: Github, href: "https://github.com/JuanIRMariani", label: "GitHub" },
-  { icon: Linkedin, href: "https://www.linkedin.com/in/juan-ignacio-rodriguez-mariani/", label: "LinkedIn" },
+  { icon: GitHubIcon, href: "https://github.com/JuaniRMariani", label: "GitHub" },
+  { icon: LinkedInIcon, href: "https://www.linkedin.com/in/juan-ignacio-rodriguez-mariani/", label: "LinkedIn" },
   { icon: Mail, href: "mailto:juanirmariani@gmail.com", label: "Email" },
 ]
 

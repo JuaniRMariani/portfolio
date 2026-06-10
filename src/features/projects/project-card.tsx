@@ -1,5 +1,6 @@
-import { ExternalLink, Github } from "lucide-react"
-import { cn } from "<Juan Ignacio>/lib/utils"
+import { ExternalLink } from "lucide-react"
+import { GitHubIcon } from "@/components/icons"
+import { cn } from "@/lib/utils"
 import { Project } from "./projects"
 
 interface ProjectCardProps {
@@ -53,7 +54,7 @@ export function ProjectCard({ project, isReversed = false }: ProjectCardProps) {
               className="text-foreground hover:text-primary transition-colors"
               aria-label="Ver código en GitHub"
             >
-              <Github size={20} />
+              <GitHubIcon size={20} />
             </a>
           )}
           {project.live && (

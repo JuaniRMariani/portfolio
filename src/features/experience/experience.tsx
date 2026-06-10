@@ -1,7 +1,7 @@
 "use client"
 
-import { SectionHeading } from "<Juan Ignacio>/components/section-heading"
-import { cn } from "<Juan Ignacio>/lib/utils"
+import { SectionHeading } from "@/components/section-heading"
+import { cn } from "@/lib/utils"
 import { useState } from "react"
 
 

@@ -1,11 +1,11 @@
-import { Hero } from "<Juan Ignacio>/components/hero";
-import { Footer } from "<Juan Ignacio>/components/layout/footer";
-import { Header } from "<Juan Ignacio>/components/layout/header";
-import { About } from "<Juan Ignacio>/features/about/about";
-import { Contact } from "<Juan Ignacio>/features/contact/contact";
-import { Experience } from "<Juan Ignacio>/features/experience/experience";
-import { Projects } from "<Juan Ignacio>/features/projects/projects";
-import { Skills } from "<Juan Ignacio>/features/skills/skills";
+import { Hero } from "@/components/hero";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
+import { About } from "@/features/about/about";
+import { Contact } from "@/features/contact/contact";
+import { Experience } from "@/features/experience/experience";
+import { Projects } from "@/features/projects/projects";
+import { Skills } from "@/features/skills/skills";
 
 
 export default function HomePage() {

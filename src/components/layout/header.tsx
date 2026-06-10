@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
-import { cn } from "<Juan Ignacio>/lib/utils"
+import { cn } from "@/lib/utils"
 
 const NAV_ITEMS = [
   { label: "Sobre mí", href: "#about" },

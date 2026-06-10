@@ -1,4 +1,4 @@
-import { SectionHeading } from "<Juan Ignacio>/components/section-heading"
+import { SectionHeading } from "@/components/section-heading"
 import { SkillCategory } from "./skill-category"
 
 

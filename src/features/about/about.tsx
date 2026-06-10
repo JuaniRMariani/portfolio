@@ -1,4 +1,4 @@
-import { SectionHeading } from "<Juan Ignacio>/components/section-heading";
+import { SectionHeading } from "@/components/section-heading";
 import Image from "next/image.js";
 
 export function About() {
