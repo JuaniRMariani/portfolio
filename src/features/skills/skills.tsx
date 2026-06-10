@@ -1,77 +1,34 @@
-import { SectionHeading } from "@/components/section-heading"
-import { SkillCategory } from "./skill-category"
+import { skills, tr, type Locale } from "@/content"
+import { TerminalSection } from "@/components/terminal/terminal-section"
 
-
-interface Skill {
-  name: string
-  level: number
-}
-
-interface SkillCategoryData {
-  title: string
-  skills: Skill[]
-}
-
-const SKILL_CATEGORIES: SkillCategoryData[] = [
-  {
-    title: "Lenguajes de Programación",
-    skills: [
-      { name: "Java", level: 90 },
-      { name: "JavaScript", level: 85 },
-      { name: "TypeScript", level: 80 },
-      { name: "Python", level: 85 },
-      { name: "C", level: 75 },
-      { name: "Prolog", level: 70 },
-      { name: "Kotlin", level: 70 },
-      { name: "PHP", level: 75 },
-      { name: "SQL", level: 80 },
-    ],
-  },
-  {
-    title: "Tecnologías Web",
-    skills: [
-      { name: "HTML", level: 90 },
-      { name: "CSS", level: 90 },
-      { name: "React", level: 85 },
-      { name: "Next.js", level: 80 },
-      { name: "Node.js", level: 80 },
-      { name: "Django", level: 75 },
-    ],
-  },
-  {
-    title: "Herramientas y Sistemas",
-    skills: [
-      { name: "Git / GitHub", level: 85 },
-      { name: "Testing Automatizado", level: 75 },
-      { name: "Testing Manual", level: 75 },
-      { name: "Windows", level: 80 },
-      { name: "Linux", level: 75 },
-      { name: "Máquinas Virtuales", level: 70 },
-      { name: "Nginx", level: 70 },
-    ],
-  },
-  {
-    title: "Idiomas",
-    skills: [
-      { name: "Español", level: 100 },
-      { name: "Inglés", level: 75 },
-      { name: "Italiano", level: 25 },
-    ],
-  },
-]
-
-export function Skills() {
+export function Skills({ locale }: { locale: Locale }) {
   return (
-    <section id="skills" className="py-24 px-6 bg-card/50">
-      <div className="mx-auto max-w-4xl">
-        <SectionHeading number="04" title="Habilidades" />
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {SKILL_CATEGORIES.map((category) => (
-            <SkillCategory key={category.title} title={category.title} skills={category.skills} />
-          ))}
-        </div>
+    <TerminalSection id="skills" command="claude skills list">
+      <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
+        {skills.map((group) => (
+          <div key={group.id}>
+            <h3 className="font-mono text-sm font-bold text-foreground">
+              <span className="select-none text-prompt" aria-hidden="true">
+                ▸{" "}
+              </span>
+              {tr(group.title, locale)}
+            </h3>
+            {tr(group.note, locale) && (
+              <p className="mt-1 font-mono text-xs text-term-dim"># {tr(group.note, locale)}</p>
+            )}
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {group.items.map((item) => (
+                <li
+                  key={item}
+                  className="rounded border border-border px-2 py-0.5 font-mono text-xs text-muted-foreground"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-    </section>
+    </TerminalSection>
   )
 }

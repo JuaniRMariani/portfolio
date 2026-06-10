@@ -1,34 +1,34 @@
-import { SectionHeading } from "@/components/section-heading"
 import { Mail } from "lucide-react"
+import { profile, ui, tr, type Locale } from "@/content"
+import { TerminalSection } from "@/components/terminal/terminal-section"
+import { SocialLinks } from "@/components/social-links"
+import { Cursor } from "@/components/terminal/cursor"
 
-export function Contact() {
+export function Contact({ locale }: { locale: Locale }) {
   return (
-    <section id="contact" className="py-24 px-6">
-      <div className="mx-auto max-w-2xl text-center">
-        <SectionHeading number="05" title="Contacto" />
-
-        <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-          Actualmente estoy buscando nuevas oportunidades. Ya sea que tengas una pregunta, una propuesta de proyecto, o
-          simplemente quieras saludar, ¡estaré encantado de responder!
+    <TerminalSection id="contact" command="claude /contact">
+      <div className="scanlines rounded-lg border border-border bg-card/70 px-5 py-8 text-center sm:px-8 sm:py-10">
+        <h3 className="glow font-display text-2xl text-foreground sm:text-4xl">
+          {tr(ui.contact.heading, locale)}
+        </h3>
+        <p className="mx-auto mt-4 max-w-md font-sans text-base leading-relaxed text-muted-foreground">
+          {tr(ui.contact.body, locale)}
         </p>
-
-        <div className="flex flex-col items-center gap-4 mb-8">
-          <p className="text-muted-foreground">
-            <span className="font-medium">Ubicación:</span> Bahía Blanca, Buenos Aires
-          </p>
-          <p className="text-muted-foreground">
-            <span className="font-medium">Teléfono:</span> (+54) 9 291 423 7634
-          </p>
+        <div className="mt-7 flex flex-col items-center gap-4">
+          <a
+            href={`mailto:${profile.links.email}`}
+            className="inline-flex min-h-11 items-center gap-2 rounded bg-primary px-5 py-2.5 font-mono text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            <Mail className="size-4" aria-hidden="true" />
+            {tr(ui.contact.cta, locale)}
+          </a>
+          <SocialLinks />
         </div>
-
-        <a
-          href="mailto:juanirmariani@gmail.com"
-          className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary text-primary font-medium rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors"
-        >
-          <Mail size={20} />
-          Envíame un mensaje
-        </a>
+        <p className="mt-8 font-mono text-xs text-term-dim">
+          {profile.links.email}
+          <Cursor className="ml-1.5 h-[1em] w-[0.45em]" />
+        </p>
       </div>
-    </section>
+    </TerminalSection>
   )
 }

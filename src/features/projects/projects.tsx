@@ -1,66 +1,111 @@
-import { SectionHeading } from "../../components/section-heading"
-import { ProjectCard } from "./project-card"
+import { ExternalLink, Newspaper } from "lucide-react"
+import { GitHubIcon } from "@/components/icons"
+import { projects, tr, type Locale, type Project } from "@/content"
+import { TerminalSection } from "@/components/terminal/terminal-section"
+import { ToolCallCard } from "@/components/terminal/tool-call-card"
 
-
-export interface Project {
-  title: string
-  description: string
-  image: string
-  tags: string[]
-  github?: string
-  live?: string
+const STATUS_STYLES: Record<Project["status"], { dot: string; text: Record<Locale, string> }> = {
+  production: { dot: "text-term-green", text: { en: "in production", es: "en producción" } },
+  "public-repo": { dot: "text-term-yellow", text: { en: "public repo", es: "repo público" } },
+  internal: { dot: "text-term-dim", text: { en: "self-hosted", es: "self-hosted" } },
 }
 
-const PROJECTS: Project[] = [
-  {
-    title: "Sistema de Gestión Médica",
-    description:
-      "Plataforma completa para la administración de pacientes, turnos y profesionales médicos. Desarrollada aplicando metodologías ágiles para una gestión eficiente.",
-    image: "/modern-ecommerce-dashboard-dark-theme.png",
-    tags: ["Metodologías Ágiles", "Gestión Médica", "Web"],
-  },
-  {
-    title: "Visualización de Datos Fórmula 1",
-    description:
-      "Aplicación web y de escritorio para visualizar datos de Fórmula 1. Integración con API FastF1, utilizando React, Electron y Pandas para análisis de datos.",
-    image: "/task-management-app-kanban-board-dark-theme.jpg",
-    tags: ["React", "Electron", "Pandas", "FastF1 API"],
-  },
-  {
-    title: "Juego 2248",
-    description:
-      "Juego 2248 desarrollado utilizando Prolog para la lógica y React para la interfaz de usuario. Implementación de mecánicas de juego interactivas.",
-    image: "/ai-content-generator-interface-dark-theme-blue-acc.jpg",
-    tags: ["Prolog", "React", "Juegos"],
-  },
-  {
-    title: "Plants vs Zombies",
-    description:
-      "Versión del juego Plants vs Zombies implementada en Java, aplicando patrones de diseño y gestión avanzada de eventos para una experiencia de juego fluida.",
-    image: "/modern-ecommerce-dashboard-dark-theme.png",
-    tags: ["Java", "Patrones de Diseño", "Gestión de Eventos"],
-  },
-  {
-    title: "Snake Game",
-    description:
-      "Clásico juego Snake desarrollado en Java, aplicando principios de Programación Orientada a Objetos y estructuras de datos eficientes.",
-    image: "/task-management-app-kanban-board-dark-theme.jpg",
-    tags: ["Java", "POO", "Estructuras de Datos"],
-  },
-]
-
-export function Projects() {
+export function Projects({ locale }: { locale: Locale }) {
   return (
-    <section id="projects" className="py-24 px-6">
-      <div className="mx-auto max-w-5xl">
-        <SectionHeading number="03" title="Proyectos destacados" />
+    <TerminalSection id="projects" command="ls projects/ --sort=impact">
+      <div className="space-y-4">
+        {projects.map((project) => {
+          const status = STATUS_STYLES[project.status]
+          return (
+            <ToolCallCard
+              key={project.slug}
+              tool={project.terminal.tool}
+              arg={project.terminal.arg}
+              defaultOpen={!!project.featured}
+            >
+              <div className="space-y-4">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <h3 className="font-mono text-lg font-bold text-foreground">{project.name}</h3>
+                  <span className="font-mono text-xs text-muted-foreground">{tr(project.role, locale)}</span>
+                  <span className="font-mono text-xs">
+                    <span className={status.dot} aria-hidden="true">
+                      ●{" "}
+                    </span>
+                    <span className="text-muted-foreground">{status.text[locale]}</span>
+                  </span>
+                </div>
 
-        <div className="space-y-24">
-          {PROJECTS.map((project, index) => (
-            <ProjectCard key={project.title} project={project} isReversed={index % 2 !== 0} />
-          ))}
-        </div>
+                <p className="max-w-2xl font-sans text-base leading-relaxed text-foreground">
+                  {tr(project.summary, locale)}
+                </p>
+
+                <ul className="space-y-1.5">
+                  {project.highlights.map((highlight, i) => (
+                    <li key={i} className="flex gap-2.5 text-sm">
+                      <span className="select-none font-mono text-term-dim" aria-hidden="true">
+                        ⎿
+                      </span>
+                      <span className="font-sans leading-relaxed text-muted-foreground">{tr(highlight, locale)}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <ul className="flex flex-wrap gap-2">
+                  {project.stack.map((tech) => (
+                    <li
+                      key={tech}
+                      className="rounded border border-border px-2 py-0.5 font-mono text-xs text-muted-foreground"
+                    >
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+
+                {(project.links || project.press) && (
+                  <div className="space-y-2 border-t border-border pt-3">
+                    {project.links?.github && (
+                      <a
+                        href={project.links.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
+                      >
+                        <GitHubIcon size={14} />
+                        {project.links.github.replace("https://github.com/", "github.com/")}
+                      </a>
+                    )}
+                    {project.links?.live && (
+                      <a
+                        href={project.links.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-4 inline-flex items-center gap-2 font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
+                      >
+                        <ExternalLink size={14} aria-hidden="true" />
+                        {locale === "en" ? "live" : "en vivo"}
+                      </a>
+                    )}
+                    {project.press?.map((article) => (
+                      <a
+                        key={article.url}
+                        href={article.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-start gap-2 font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
+                      >
+                        <Newspaper size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
+                        <span>
+                          <span className="text-term-yellow">{article.outlet}</span> — {tr(article.title, locale)}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </ToolCallCard>
+          )
+        })}
       </div>
-    </section>
+    </TerminalSection>
   )
 }

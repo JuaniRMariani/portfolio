@@ -1,14 +1,18 @@
-import { SocialLinks } from "../social-links";
+import { profile, ui, tr, type Locale } from "@/content"
 
-export function Footer() {
+export function Footer({ locale }: { locale: Locale }) {
   return (
-    <footer className="py-8 px-6 border-t border-border">
-      <div className="mx-auto max-w-6xl flex flex-col items-center gap-4">
-        <SocialLinks />
-        <p className="text-sm text-muted-foreground font-mono">
-          Diseñado y desarrollado por <span className="text-primary">Juani</span>
+    <footer className="mt-20 border-t border-border">
+      <div className="mx-auto flex max-w-4xl flex-col items-start justify-between gap-3 px-4 py-6 font-mono text-xs text-muted-foreground sm:flex-row sm:items-center">
+        <p>
+          <span className="text-term-green" aria-hidden="true">
+            ⏺{" "}
+          </span>
+          {tr(ui.footer.built, locale)}
         </p>
-        <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Todos los derechos reservados.</p>
+        <p className="shrink-0">
+          © {new Date().getFullYear()} {profile.name}
+        </p>
       </div>
     </footer>
   )

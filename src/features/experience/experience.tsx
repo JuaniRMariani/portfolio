@@ -1,91 +1,35 @@
-"use client"
+import { experience, tr, type Locale } from "@/content"
+import { TerminalSection } from "@/components/terminal/terminal-section"
 
-import { SectionHeading } from "@/components/section-heading"
-import { cn } from "@/lib/utils"
-import { useState } from "react"
-
-
-interface Job {
-  company: string
-  role: string
-  period: string
-  description: string[]
-}
-
-const JOBS: Job[] = [
-  {
-    company: "NexoSmart",
-    role: "Software Engineer",
-    period: "2025 — Presente",
-    description: [
-      "Resolución de problemas de manera proactiva, proponiendo soluciones innovadoras y eficientes.",
-      "Desarrollo frontend con React/NextJS",
-      "Desarrollo backend con Laravel PHP",
-      "Trabajo con metodologías ágiles y estimación de tareas",
-      "Trabajo en equipo, fomentando una comunicación efectiva y coordinada para alcanzar objetivos comunes",
-    ],
-  },
-  {
-    company: "Le Pas Sage",
-    role: "Freelance Full Stack Developer",
-    period: "2024 — 2025",
-    description: [
-      "Análisis y gestión de requerimientos.",
-      "Desarrollo del frontend utilizando React",
-      "Implementación del backend en Django",
-      "Soporte técnico y capacitación básica",
-      "Toma de decisiones en diseño, funcionalidad y arquitectura",
-    ],
-  },
-]
-
-export function Experience() {
-  const [activeTab, setActiveTab] = useState(0)
-
+export function Experience({ locale }: { locale: Locale }) {
   return (
-    <section id="experience" className="py-24 px-6 bg-card/50">
-      <div className="mx-auto max-w-4xl">
-        <SectionHeading number="02" title="Experiencia" />
-
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Tabs */}
-          <div className="flex md:flex-col overflow-x-auto md:overflow-visible border-b md:border-b-0 md:border-l border-border">
-            {JOBS.map((job, index) => (
-              <button
-                key={job.company}
-                onClick={() => setActiveTab(index)}
-                className={cn(
-                  "px-4 py-3 text-sm font-mono whitespace-nowrap text-left transition-all",
-                  "border-b-2 md:border-b-0 md:border-l-2 -mb-px md:mb-0 md:-ml-px",
-                  activeTab === index
-                    ? "text-primary border-primary bg-primary/5"
-                    : "text-muted-foreground border-transparent hover:text-foreground hover:bg-secondary/50",
-                )}
-              >
-                {job.company}
-              </button>
-            ))}
-          </div>
-
-          {/* Content */}
-          <div className="flex-1 min-h-75">
-            <div className="flex items-center justify-between mb-1">
-              <h3 className="text-xl font-medium text-foreground">
-                {JOBS[activeTab].role} <span className="text-primary">@ {JOBS[activeTab].company}</span>
-              </h3>              
+    <TerminalSection id="experience" command="git log --work --oneline">
+      <div className="space-y-9 border-l border-border pl-5 sm:pl-6">
+        {experience.map((job) => (
+          <article key={job.company} className="relative">
+            <span
+              className="absolute top-1.5 -left-[26px] size-2.5 rounded-full border border-primary bg-background sm:-left-[30px]"
+              aria-hidden="true"
+            />
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-sm">
+              <span className="text-term-yellow">{job.hash}</span>
+              <h3 className="text-base font-bold text-foreground">{job.company}</h3>
+              <span className="text-primary">{tr(job.role, locale)}</span>
             </div>
-            <p className="text-sm font-mono text-muted-foreground mb-6">{JOBS[activeTab].period}</p>
-            <ul className="space-y-4">
-              {JOBS[activeTab].description.map((item, index) => (
-                <li key={index} className="flex gap-3 text-muted-foreground">
-                  <span className="text-primary mt-1.5">▹</span>
-                  <span>{item}</span>
+            <p className="mt-1 font-mono text-xs text-term-dim">{tr(job.period, locale)}</p>
+            <ul className="mt-3 space-y-2">
+              {job.bullets.map((bullet, i) => (
+                <li key={i} className="flex gap-2.5 text-sm">
+                  <span className="select-none font-mono text-term-green" aria-hidden="true">
+                    +
+                  </span>
+                  <span className="font-sans leading-relaxed text-muted-foreground">{tr(bullet, locale)}</span>
                 </li>
               ))}
             </ul>
-          </div>
-        </div>
+          </article>
+        ))}
       </div>
-    </section>
+    </TerminalSection>
   )
 }
