@@ -1,0 +1,10 @@
+export { profile } from "./profile"
+export { projects } from "./projects"
+export { experience } from "./experience"
+export { skills } from "./skills"
+export { aiEngineering } from "./ai-engineering"
+export { ui } from "./ui"
+export { tr, LOCALES, DEFAULT_LOCALE } from "./types"
+export type { Locale, L, Profile, Project, Experience, SkillGroup, AiEngineering } from "./types"
+
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
