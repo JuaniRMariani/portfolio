@@ -25,7 +25,31 @@ export const experience: Experience[] = [
         es: "Me encargo de la configuración de servidores, deploys a producción y ciclos de release en Linux con Nginx.",
       },
     ],
-    hash: "a3f9c21",
+  },
+  {
+    company: "XenovaIT",
+    role: {
+      en: "Lead Engineer & Technical Director · self-employed",
+      es: "Lead Engineer y Director Técnico · independiente",
+    },
+    period: {
+      en: "Jan 2025 – present",
+      es: "Ene 2025 – presente",
+    },
+    bullets: [
+      {
+        en: "Independent software practice run in parallel with my role at NexoSmart — client engagements handled end to end: requirements scoping, architecture and operations.",
+        es: "Práctica de software independiente en paralelo a mi rol en NexoSmart — proyectos de clientes de punta a punta: relevamiento, arquitectura y operación.",
+      },
+      {
+        en: "Built and operate a private management platform used by 10+ partner companies in the food industry, integrating third-party services into a single Laravel + Next.js system.",
+        es: "Construí y opero una plataforma de gestión privada usada por 10+ empresas socias de la industria alimenticia, integrando servicios de terceros en un único sistema Laravel + Next.js.",
+      },
+      {
+        en: "Built a management platform for 5taPata (retail) that replaced manual administration and inventory workflows with one web application.",
+        es: "Construí una plataforma de gestión para 5taPata (retail) que reemplazó la administración manual y los flujos de inventario con una sola aplicación web.",
+      },
+    ],
   },
   {
     company: "Le Pas Sage",
@@ -43,6 +67,5 @@ export const experience: Experience[] = [
         es: "Construí una plataforma de e-commerce de punta a punta: backend Laravel, storefront Next.js e integración de pagos.",
       },
     ],
-    hash: "7e0b4d8",
   },
 ]

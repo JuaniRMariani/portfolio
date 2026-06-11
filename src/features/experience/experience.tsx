@@ -1,27 +1,29 @@
-import { experience, tr, type Locale } from "@/content"
-import { TerminalSection } from "@/components/terminal/terminal-section"
+import { experience, ui, tr, type Locale } from "@/content"
+import { SectionShell } from "@/components/editorial/section-shell"
+import { Annotation } from "@/components/editorial/annotation"
 
 export function Experience({ locale }: { locale: Locale }) {
   return (
-    <TerminalSection id="experience" command="git log --work --oneline">
-      <div className="space-y-9 border-l border-border pl-5 sm:pl-6">
+    <SectionShell id="experience" index="02" title={tr(ui.nav.experience, locale)}>
+      <div className="space-y-10 border-l border-hairline pl-5 sm:pl-7">
         {experience.map((job) => (
           <article key={job.company} className="relative">
             <span
-              className="absolute top-1.5 -left-[26px] size-2.5 rounded-full border border-primary bg-background sm:-left-[30px]"
+              className="absolute top-2 -left-[23px] size-2 bg-primary sm:-left-[31px]"
               aria-hidden="true"
             />
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-sm">
-              <span className="text-term-yellow">{job.hash}</span>
-              <h3 className="text-base font-bold text-foreground">{job.company}</h3>
-              <span className="text-primary">{tr(job.role, locale)}</span>
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h3 className="font-display text-lg font-bold text-foreground">{job.company}</h3>
+              <span className="font-mono text-sm text-primary">{tr(job.role, locale)}</span>
             </div>
-            <p className="mt-1 font-mono text-xs text-term-dim">{tr(job.period, locale)}</p>
+            <p className="mt-1">
+              <Annotation>{tr(job.period, locale)}</Annotation>
+            </p>
             <ul className="mt-3 space-y-2">
               {job.bullets.map((bullet, i) => (
-                <li key={i} className="flex gap-2.5 text-sm">
-                  <span className="select-none font-mono text-term-green" aria-hidden="true">
-                    +
+                <li key={i} className="flex gap-3 text-sm">
+                  <span className="select-none font-mono text-primary/70" aria-hidden="true">
+                    —
                   </span>
                   <span className="font-sans leading-relaxed text-muted-foreground">{tr(bullet, locale)}</span>
                 </li>
@@ -30,6 +32,6 @@ export function Experience({ locale }: { locale: Locale }) {
           </article>
         ))}
       </div>
-    </TerminalSection>
+    </SectionShell>
   )
 }

@@ -29,7 +29,10 @@ export const projects: Project[] = [
     stack: ["Laravel", "React", "MySQL"],
     status: "production",
     featured: true,
-    terminal: { tool: "Task", arg: "cuonti" },
+    metrics: [
+      { value: "50+", label: { en: "active clients", es: "clientes activos" } },
+      { value: "150+", label: { en: "registered accounts", es: "cuentas creadas" } },
+    ],
   },
   {
     slug: "agro-bcs",
@@ -79,7 +82,6 @@ export const projects: Project[] = [
         url: "https://vetmarketportal.com.ar/nota/4987/una-app-permite-evaluar-la-condicion-corporal-del-ganado-con-solo-una-foto/",
       },
     ],
-    terminal: { tool: "Task", arg: "agro-bcs" },
   },
   {
     slug: "vps-infra",
@@ -100,6 +102,5 @@ export const projects: Project[] = [
     ],
     stack: ["Ubuntu", "Nginx", "Cloudflare", "CI/CD"],
     status: "internal",
-    terminal: { tool: "Bash", arg: "deploy --vps" },
   },
 ]

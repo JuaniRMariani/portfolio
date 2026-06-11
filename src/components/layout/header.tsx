@@ -1,35 +1,35 @@
 import Link from "next/link"
 import { ui, tr, type Locale } from "@/content"
 import { LocaleSwitcher } from "@/components/locale-switcher"
-import { SkipButton } from "@/components/terminal/skip-button"
+import { SkipButton } from "@/components/editorial/skip-button"
 
 export function Header({ locale }: { locale: Locale }) {
   const navItems = [
     { href: "#about", label: tr(ui.nav.about, locale) },
     { href: "#experience", label: tr(ui.nav.experience, locale) },
     { href: "#projects", label: tr(ui.nav.projects, locale) },
-    { href: "#ai-engineering", label: tr(ui.nav.ai, locale) },
+    { href: "#how-i-work", label: tr(ui.nav.ai, locale) },
     { href: "#skills", label: tr(ui.nav.skills, locale) },
     { href: "#contact", label: tr(ui.nav.contact, locale) },
   ]
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-12 max-w-4xl items-center gap-3 px-4">
-        <div className="flex shrink-0 gap-1.5" aria-hidden="true">
-          <span className="size-2.5 rounded-full bg-term-red/80" />
-          <span className="size-2.5 rounded-full bg-term-yellow/80" />
-          <span className="size-2.5 rounded-full bg-term-green/80" />
-        </div>
+    <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-md">
+      <div className="mx-auto flex h-13 max-w-5xl items-center gap-4 px-4">
         <Link
           href={`/${locale}`}
-          className="truncate font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+          className="flex shrink-0 items-baseline gap-1.5 font-display text-base font-extrabold tracking-tight text-foreground transition-colors hover:text-primary"
         >
-          {tr(ui.terminal.sessionTitle, locale)}
+          JRM
+          <span className="size-1.5 translate-y-px bg-primary" aria-hidden="true" />
         </Link>
-        <nav className="ml-auto hidden items-center gap-4 font-mono text-xs lg:flex" aria-label="Main">
+        <nav className="ml-auto hidden items-center gap-5 lg:flex" aria-label="Main">
           {navItems.map((item) => (
-            <a key={item.href} href={item.href} className="text-muted-foreground transition-colors hover:text-primary">
+            <a
+              key={item.href}
+              href={item.href}
+              className="font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase transition-colors hover:text-primary"
+            >
               {item.label}
             </a>
           ))}

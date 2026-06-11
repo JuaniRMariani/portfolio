@@ -1,4 +1,4 @@
-import { AnimationProvider } from "@/components/terminal/animation-context"
+import { AnimationProvider } from "@/components/editorial/animation-context"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { Hero } from "@/features/hero/hero"
@@ -17,7 +17,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <AnimationProvider>
       <Header locale={locale} />
-      <main className="mx-auto max-w-4xl px-4">
+      <main className="mx-auto max-w-5xl px-4">
         <Hero locale={locale} />
         <About locale={locale} />
         <Experience locale={locale} />

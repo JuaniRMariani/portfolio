@@ -1,10 +1,16 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { Schibsted_Grotesk } from "next/font/google"
+import { Bricolage_Grotesque, Schibsted_Grotesk } from "next/font/google"
 import localFont from "next/font/local"
 import { LOCALES, ui, tr, SITE_URL, type Locale } from "@/content"
 import "../globals.css"
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  display: "swap",
+})
 
 const schibsted = Schibsted_Grotesk({
   subsets: ["latin"],
@@ -18,13 +24,6 @@ const commitMono = localFont({
     { path: "../../fonts/commit-mono-700.woff2", weight: "700", style: "normal" },
   ],
   variable: "--font-commit",
-  display: "swap",
-})
-
-const departureMono = localFont({
-  src: "../../fonts/departure-mono-400.woff2",
-  weight: "400",
-  variable: "--font-departure",
   display: "swap",
 })
 
@@ -99,10 +98,10 @@ export default async function RootLayout({ children, params }: LayoutProps) {
   return (
     <html lang={locale}>
       <body
-        className={`${schibsted.variable} ${commitMono.variable} ${departureMono.variable} font-mono antialiased`}
+        className={`${bricolage.variable} ${schibsted.variable} ${commitMono.variable} font-sans antialiased`}
       >
         {/* Marks JS availability before paint: reveal targets are only
-            hidden for the terminal animation when this attribute exists. */}
+            hidden for the entrance animation when this attribute exists. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.dataset.js=''" }} />
         <script
           type="application/ld+json"

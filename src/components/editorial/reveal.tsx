@@ -9,6 +9,8 @@ interface RevealProps {
   /** Seconds to wait after entering the viewport. */
   delay?: number
   className?: string
+  /** Render as a span (block-level via class) where a div would be invalid HTML, e.g. inside headings. */
+  as?: "div" | "span"
 }
 
 /**
@@ -16,21 +18,22 @@ interface RevealProps {
  * visitors: the static HTML carries no hiding styles — `data-reveal` is
  * only dimmed by CSS once `html[data-js]` is set (and motion is allowed).
  */
-export function Reveal({ children, delay = 0, className }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null)
+export function Reveal({ children, delay = 0, className, as = "div" }: RevealProps) {
+  const ref = useRef<HTMLDivElement & HTMLSpanElement>(null)
   const inView = useInView(ref, { once: true, amount: 0.2 })
   const { enabled } = useAnimation()
   const show = !enabled || inView
+  const Component = as === "span" ? motion.span : motion.div
 
   return (
-    <motion.div
+    <Component
       ref={ref}
       data-reveal
       className={className}
-      animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-      transition={enabled ? { delay: show ? delay : 0, duration: 0.45, ease: "easeOut" } : { duration: 0 }}
+      animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+      transition={enabled ? { delay: show ? delay : 0, duration: 0.5, ease: "easeOut" } : { duration: 0 }}
     >
       {children}
-    </motion.div>
+    </Component>
   )
 }

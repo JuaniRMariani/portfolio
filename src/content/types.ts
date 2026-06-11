@@ -50,11 +50,11 @@ export interface Project {
     title: L<string>
     url: string
   }[]
-  /** How the project renders as a terminal tool call, e.g. Task(cuonti). */
-  terminal: {
-    tool: string
-    arg: string
-  }
+  /** Verified headline numbers rendered big on featured cards. */
+  metrics?: {
+    value: string
+    label: L<string>
+  }[]
 }
 
 export interface Experience {
@@ -62,8 +62,6 @@ export interface Experience {
   role: L<string>
   period: L<string>
   bullets: L<string>[]
-  /** Decorative short hash for the git-log style rendering. */
-  hash: string
 }
 
 export interface SkillGroup {

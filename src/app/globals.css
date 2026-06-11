@@ -1,40 +1,36 @@
 @import "tailwindcss";
 
-/* ─── Claude Code session theme — deep dark + electric coral ─── */
+/* ─── Technical Editorial theme — ink navy + electric orange ─── */
 :root {
-  --background: oklch(0.12 0.01 260);
-  --foreground: oklch(0.94 0.005 260);
-  --card: oklch(0.155 0.012 260);
-  --card-foreground: oklch(0.94 0.005 260);
-  --popover: oklch(0.155 0.012 260);
-  --popover-foreground: oklch(0.94 0.005 260);
-  --primary: oklch(0.72 0.19 45);
-  --primary-foreground: oklch(0.12 0.01 260);
-  --secondary: oklch(0.2 0.015 260);
-  --secondary-foreground: oklch(0.94 0.005 260);
-  --muted: oklch(0.22 0.015 260);
-  --muted-foreground: oklch(0.68 0.015 260);
-  --accent: oklch(0.72 0.19 45);
-  --accent-foreground: oklch(0.12 0.01 260);
+  --background: oklch(0.18 0.035 255);
+  --foreground: oklch(0.95 0.012 75);
+  --card: oklch(0.215 0.04 255);
+  --card-foreground: oklch(0.95 0.012 75);
+  --popover: oklch(0.215 0.04 255);
+  --popover-foreground: oklch(0.95 0.012 75);
+  --primary: oklch(0.72 0.19 50);
+  --primary-foreground: oklch(0.15 0.03 255);
+  --secondary: oklch(0.25 0.04 255);
+  --secondary-foreground: oklch(0.95 0.012 75);
+  --muted: oklch(0.24 0.04 255);
+  --muted-foreground: oklch(0.74 0.04 250);
+  --accent: oklch(0.72 0.19 50);
+  --accent-foreground: oklch(0.15 0.03 255);
   --destructive: oklch(0.6 0.22 25);
-  --destructive-foreground: oklch(0.94 0.005 260);
-  --border: oklch(0.25 0.015 260);
-  --input: oklch(0.2 0.015 260);
-  --ring: oklch(0.72 0.19 45);
-  --radius: 0.5rem;
+  --destructive-foreground: oklch(0.95 0.012 75);
+  --border: oklch(0.3 0.045 255);
+  --input: oklch(0.25 0.04 255);
+  --ring: oklch(0.72 0.19 50);
+  --radius: 0.25rem;
 
-  /* terminal palette */
-  --term-green: oklch(0.75 0.17 150);
-  --term-red: oklch(0.65 0.2 25);
-  --term-yellow: oklch(0.8 0.15 90);
-  --term-dim: oklch(0.55 0.015 260);
-  --prompt: var(--primary);
+  /* hairline for blueprint rules — slightly fainter than --border */
+  --hairline: oklch(0.27 0.045 255);
 }
 
 @theme inline {
   --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-commit), ui-monospace, "Cascadia Code", monospace;
-  --font-display: var(--font-departure), var(--font-commit), ui-monospace, monospace;
+  --font-display: var(--font-bricolage), var(--font-schibsted), ui-sans-serif, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -55,15 +51,11 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-term-green: var(--term-green);
-  --color-term-red: var(--term-red);
-  --color-term-yellow: var(--term-yellow);
-  --color-term-dim: var(--term-dim);
-  --color-prompt: var(--prompt);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --color-hairline: var(--hairline);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
 }
 
 @layer base {
@@ -86,7 +78,7 @@
 /* ─── Progressive reveal (SEO-first) ───
    Content is fully present in static HTML. Only when JS is confirmed
    (html[data-js], set by an inline script) AND motion is allowed do we
-   hide reveal targets so the terminal animation can play. No JS or
+   hide reveal targets so the entrance animation can play. No JS or
    reduced motion -> everything visible, always. */
 @media (prefers-reduced-motion: no-preference) {
   html[data-js] [data-reveal] {
@@ -103,61 +95,75 @@ body::after {
   inset: 0;
   z-index: 100;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.045;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* subtle CRT scanlines for terminal frames */
-.scanlines {
-  background-image: repeating-linear-gradient(
-    0deg,
-    transparent 0px,
-    transparent 2px,
-    oklch(1 0 0 / 0.012) 2px,
-    oklch(1 0 0 / 0.012) 4px
-  );
+@layer utilities {
+  /* blueprint hairline grid — fades out towards the bottom */
+  .blueprint-grid {
+    background-image:
+      linear-gradient(to right, oklch(0.3 0.045 255 / 0.35) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0.3 0.045 255 / 0.35) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+  }
+
+  /* ambient glow behind the hero: warm orange + cool navy counterlight */
+  .hero-glow {
+    background:
+      radial-gradient(ellipse 55% 45% at 16% 10%, oklch(0.72 0.19 50 / 0.13), transparent 65%),
+      radial-gradient(ellipse 45% 40% at 88% 30%, oklch(0.5 0.1 260 / 0.22), transparent 60%),
+      radial-gradient(ellipse 50% 35% at 60% 95%, oklch(0.72 0.19 50 / 0.05), transparent 60%);
+  }
+
+  /* orange highlighter block behind a display word */
+  .ink-block {
+    background: linear-gradient(to top, var(--primary) 0%, var(--primary) 100%) no-repeat;
+    background-size: 100% 38%;
+    background-position: 0 86%;
+  }
+
+  /* editorial link underline that sweeps in on hover */
+  .link-sweep {
+    background: linear-gradient(to right, var(--primary), var(--primary)) no-repeat;
+    background-size: 0% 2px;
+    background-position: 0 100%;
+    transition: background-size 0.3s ease;
+  }
+  .link-sweep:hover,
+  .link-sweep:focus-visible {
+    background-size: 100% 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .link-sweep {
+      transition: none;
+    }
+  }
 }
 
-/* phosphor glow for accent text */
-.glow {
-  text-shadow: 0 0 10px oklch(0.72 0.19 45 / 0.45);
-}
-
-.glow-green {
-  text-shadow: 0 0 10px oklch(0.75 0.17 150 / 0.4);
-}
-
-/* ambient gradient mesh behind the hero */
-.hero-mesh {
-  background:
-    radial-gradient(ellipse 60% 45% at 18% 8%, oklch(0.72 0.19 45 / 0.09), transparent 65%),
-    radial-gradient(ellipse 50% 40% at 85% 25%, oklch(0.55 0.12 280 / 0.07), transparent 60%),
-    radial-gradient(ellipse 45% 35% at 55% 90%, oklch(0.75 0.17 150 / 0.05), transparent 60%);
-}
-
-/* blinking block cursor */
-@keyframes blink {
+/* pulsing status dot */
+@keyframes status-pulse {
   0%,
-  49% {
+  100% {
     opacity: 1;
   }
-  50%,
-  100% {
-    opacity: 0;
+  50% {
+    opacity: 0.35;
   }
 }
 
-.cursor-blink {
-  animation: blink 1.06s steps(1) infinite;
+.status-pulse {
+  animation: status-pulse 2.4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cursor-blink {
+  .status-pulse {
     animation: none;
   }
 }
 
 ::selection {
-  background: oklch(0.72 0.19 45 / 0.35);
-  color: oklch(0.97 0.005 260);
+  background: oklch(0.72 0.19 50 / 0.4);
+  color: oklch(0.97 0.005 75);
 }

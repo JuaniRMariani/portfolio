@@ -5,12 +5,20 @@ export const ui = {
     about: { en: "About", es: "Sobre mí" } satisfies L<string>,
     experience: { en: "Experience", es: "Experiencia" } satisfies L<string>,
     projects: { en: "Projects", es: "Proyectos" } satisfies L<string>,
-    ai: { en: "AI engineering", es: "Ingeniería con IA" } satisfies L<string>,
+    ai: { en: "How I work", es: "Cómo trabajo" } satisfies L<string>,
     skills: { en: "Skills", es: "Skills" } satisfies L<string>,
     contact: { en: "Contact", es: "Contacto" } satisfies L<string>,
   },
-  skipAnimation: { en: "skip animation", es: "saltar animación" } satisfies L<string>,
+  skipAnimation: { en: "skip intro", es: "saltar intro" } satisfies L<string>,
   switchLocale: { en: "Ver en español", es: "View in English" } satisfies L<string>,
+  hero: {
+    kicker: {
+      en: "Portfolio — Information Systems Engineer",
+      es: "Portfolio — Ingeniero en Sistemas de Información",
+    } satisfies L<string>,
+    viewProjects: { en: "View projects", es: "Ver proyectos" } satisfies L<string>,
+    getInTouch: { en: "Get in touch", es: "Contactame" } satisfies L<string>,
+  },
   meta: {
     title: {
       en: "Juan Ignacio Rodríguez Mariani — Information Systems Engineer",
@@ -31,14 +39,12 @@ export const ui = {
   },
   footer: {
     built: {
-      en: "Designed and built as a Claude Code session — because that's how I actually work.",
-      es: "Diseñado y construido como una sesión de Claude Code — porque así trabajo de verdad.",
+      en: "Designed & built with agentic workflows — that's genuinely how I work.",
+      es: "Diseñado y construido con workflows agénticos — así trabajo de verdad.",
     } satisfies L<string>,
-  },
-  terminal: {
-    sessionTitle: { en: "juani@portfolio — claude", es: "juani@portfolio — claude" } satisfies L<string>,
-    running: { en: "running…", es: "ejecutando…" } satisfies L<string>,
-    expand: { en: "expand", es: "expandir" } satisfies L<string>,
-    collapse: { en: "collapse", es: "colapsar" } satisfies L<string>,
+    type: {
+      en: "Set in Bricolage Grotesque, Schibsted Grotesk & Commit Mono",
+      es: "Compuesto en Bricolage Grotesque, Schibsted Grotesk y Commit Mono",
+    } satisfies L<string>,
   },
 } as const
