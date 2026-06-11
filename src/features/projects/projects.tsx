@@ -1,8 +1,9 @@
-import { ExternalLink, Newspaper } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import { GitHubIcon } from "@/components/icons"
 import { projects, ui, tr, type Locale, type Project } from "@/content"
 import { SectionShell } from "@/components/editorial/section-shell"
 import { Annotation } from "@/components/editorial/annotation"
+import { PressCarousel } from "@/components/editorial/press-carousel"
 import { cn } from "@/lib/utils"
 
 const STATUS_LABELS: Record<Project["status"], Record<Locale, string>> = {
@@ -12,7 +13,7 @@ const STATUS_LABELS: Record<Project["status"], Record<Locale, string>> = {
 }
 
 function ProjectLinks({ project, locale }: { project: Project; locale: Locale }) {
-  if (!project.links && !project.press) return null
+  if (!project.links) return null
   return (
     <div className="space-y-2 border-t border-hairline pt-4">
       {project.links?.github && (
@@ -37,20 +38,6 @@ function ProjectLinks({ project, locale }: { project: Project; locale: Locale })
           {locale === "en" ? "live" : "en vivo"}
         </a>
       )}
-      {project.press?.map((article) => (
-        <a
-          key={article.url}
-          href={article.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-start gap-2 font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
-        >
-          <Newspaper size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
-          <span>
-            <span className="text-primary">{article.outlet}</span> — {tr(article.title, locale)}
-          </span>
-        </a>
-      ))}
     </div>
   )
 }
@@ -133,6 +120,9 @@ function ProjectCard({
 export function Projects({ locale }: { locale: Locale }) {
   const featured = projects.filter((project) => project.featured)
   const rest = projects.filter((project) => !project.featured)
+  const pressItems = projects
+    .flatMap((project) => project.press ?? [])
+    .map((article) => ({ ...article, title: tr(article.title, locale) }))
 
   return (
     <SectionShell id="projects" index="03" title={tr(ui.nav.projects, locale)}>
@@ -146,6 +136,27 @@ export function Projects({ locale }: { locale: Locale }) {
           ))}
         </div>
       </div>
+
+      {pressItems.length > 0 && (
+        <div className="mt-12">
+          <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+            <h3 className="flex items-baseline gap-3 font-display text-base font-bold text-foreground uppercase">
+              <span className="font-mono text-xs font-bold text-primary" aria-hidden="true">
+                3.{projects.length + 1}
+              </span>
+              {tr(ui.press.heading, locale)}
+            </h3>
+            <Annotation>{tr(ui.press.sub, locale)}</Annotation>
+          </div>
+          <PressCarousel
+            items={pressItems}
+            readLabel={tr(ui.press.readArticle, locale)}
+            countLabel={`${pressItems.length.toString().padStart(2, "0")} ${locale === "en" ? "articles" : "notas"}`}
+            prevLabel={tr(ui.press.prev, locale)}
+            nextLabel={tr(ui.press.next, locale)}
+          />
+        </div>
+      )}
     </SectionShell>
   )
 }

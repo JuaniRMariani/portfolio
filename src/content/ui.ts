@@ -19,6 +19,16 @@ export const ui = {
     viewProjects: { en: "View projects", es: "Ver proyectos" } satisfies L<string>,
     getInTouch: { en: "Get in touch", es: "Contactame" } satisfies L<string>,
   },
+  press: {
+    heading: { en: "Press coverage", es: "En los medios" } satisfies L<string>,
+    sub: {
+      en: "Agro BCS in national and regional media",
+      es: "Agro BCS en medios nacionales y regionales",
+    } satisfies L<string>,
+    readArticle: { en: "Read article", es: "Leer nota" } satisfies L<string>,
+    prev: { en: "Previous articles", es: "Notas anteriores" } satisfies L<string>,
+    next: { en: "Next articles", es: "Notas siguientes" } satisfies L<string>,
+  },
   meta: {
     title: {
       en: "Juan Ignacio Rodríguez Mariani — Information Systems Engineer",

@@ -66,12 +66,31 @@ export const projects: Project[] = [
     status: "public-repo",
     press: [
       {
+        outlet: "Infocampo",
+        title: {
+          en: "Just one photo and AI: three young engineers built an app that simplifies a key aspect of cattle management",
+          es: "Solo una foto y la IA: tres jóvenes diseñaron una app que facilita el manejo de un aspecto clave en los bovinos",
+        },
+        url: "https://www.infocampo.com.ar/solo-una-foto-y-la-ia-tres-jovenes-disenaron-una-app-que-facilita-el-manejo-de-un-aspecto-clave-en-los-bovinos/",
+        image: "/press/infocampo.jpg",
+      },
+      {
+        outlet: "El Día",
+        title: {
+          en: "Bahía Blanca students create an AI app to assess cattle nutritional condition",
+          es: "Estudiantes de Bahía Blanca crean una app con IA para evaluar estado nutricional del ganado",
+        },
+        url: "https://www.eldia.com/nota/2026-4-8-12-19-0-estudiantes-de-bahia-blanca-crean-una-app-con-ia-para-evaluar-estado-nutricional-del-ganado-politica-y-economia",
+        image: "/press/eldia.jpg",
+      },
+      {
         outlet: "La Brújula 24",
         title: {
           en: "Bahía Blanca students built an AI app that detects nutritional problems in cattle",
           es: "Estudiantes bahienses crearon una app con IA que detecta problemas nutricionales en el ganado",
         },
         url: "https://www.labrujula24.com/notas/2026/04/06/estudiantes-bahienses-crearon-una-app-con-ia-que-detecta-problemas-nutricionales-en-el-ganado-n493719/",
+        image: "/press/labrujula24.jpg",
       },
       {
         outlet: "Vet Market",
@@ -80,6 +99,43 @@ export const projects: Project[] = [
           es: "Una app permite evaluar la condición corporal del ganado con solo una foto",
         },
         url: "https://vetmarketportal.com.ar/nota/4987/una-app-permite-evaluar-la-condicion-corporal-del-ganado-con-solo-una-foto/",
+        image: "/press/vetmarket.jpg",
+      },
+      {
+        outlet: "Estación K2",
+        title: {
+          en: "Students built an app that identifies potential nutritional problems in cattle",
+          es: "Estudiantes crearon una app que permite identificar posibles problemas nutricionales en el ganado",
+        },
+        url: "https://estacionk2.com/nota/181618/estudiantes-crearon-una-app-que-permite-identificar-posibles-problemas-nutricionales-en-el-ganado/",
+        image: "/press/estacionk2.jpg",
+      },
+      {
+        outlet: "Infobonaerenses",
+        title: {
+          en: "A student-built app aims to safeguard cattle feeding",
+          es: "Una app creada por estudiantes apunta a cuidar la alimentación del ganado",
+        },
+        url: "https://infobonaerenses.com.ar/nota/43062/una-app-creada-por-estudiantes-apunta-a-cuidar-la-alimentacion-del-ganado/",
+        image: "/press/infobonaerenses.jpg",
+      },
+      {
+        outlet: "Ecos de la Ciudad",
+        title: {
+          en: "UNS: students create an app to evaluate cattle nutritional status",
+          es: "UNS: estudiantes crean app que permite evaluar el estado nutricional del ganado",
+        },
+        url: "https://ecosdelaciudad.com.ar/2026/04/07/uns-estudiantes-crean-app-que-permite-evaluar-el-estado-nutricional-del-ganado/",
+        image: "/press/ecosdelaciudad.jpg",
+      },
+      {
+        outlet: "Enfoque U (UNS)",
+        title: {
+          en: "Students built an app that uses AI to detect nutritional problems in cattle",
+          es: "Estudiantes crearon una app que usa IA para detectar problemas nutricionales en el ganado",
+        },
+        url: "https://www.enfoqueu.uns.edu.ar/estudiantes-crearon-una-app-que-usa-ia-para-detectar-problemas-nutricionales-en-el-ganado/",
+        image: "/press/enfoqueu.jpg",
       },
     ],
   },

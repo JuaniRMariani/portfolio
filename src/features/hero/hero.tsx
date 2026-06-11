@@ -5,11 +5,53 @@ import { SocialLinks } from "@/components/social-links"
 
 const NAME_LINES = ["Juan Ignacio", "Rodríguez", "Mariani"]
 
+function HeroBackdrop() {
+  return (
+    <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <div className="hero-glow absolute inset-0" />
+
+      {/* compass: concentric construction arcs, partially off-canvas */}
+      <svg
+        className="absolute -top-56 -right-56 h-[680px] w-[680px] sm:-top-44 sm:-right-36"
+        viewBox="0 0 680 680"
+        fill="none"
+      >
+        <circle cx="340" cy="340" r="120" stroke="var(--hairline)" strokeWidth="1" />
+        <circle cx="340" cy="340" r="200" stroke="var(--hairline)" strokeWidth="1" />
+        <circle cx="340" cy="340" r="280" stroke="var(--hairline)" strokeWidth="1" />
+        <circle
+          cx="340"
+          cy="340"
+          r="332"
+          stroke="oklch(0.72 0.19 50 / 0.45)"
+          strokeWidth="1.5"
+          strokeDasharray="3 11"
+        />
+        <line x1="340" y1="0" x2="340" y2="680" stroke="var(--hairline)" strokeWidth="1" />
+        <line x1="0" y1="340" x2="680" y2="340" stroke="var(--hairline)" strokeWidth="1" />
+        <line x1="100" y1="100" x2="580" y2="580" stroke="var(--hairline)" strokeWidth="1" strokeDasharray="2 8" />
+        <circle cx="340" cy="340" r="4" fill="oklch(0.72 0.19 50)" />
+        <circle cx="340" cy="140" r="3" stroke="oklch(0.72 0.19 50 / 0.7)" strokeWidth="1.5" />
+      </svg>
+
+      {/* section-cut hatching, bottom left */}
+      <div className="hatch absolute bottom-8 -left-6 h-28 w-44 border border-hairline" />
+
+      {/* vertical drawing-number label, right edge */}
+      <span
+        className="absolute right-3 bottom-10 hidden font-mono text-[10px] tracking-[0.32em] text-muted-foreground/50 uppercase lg:block"
+        style={{ writingMode: "vertical-rl" }}
+      >
+        juanirmariani.com — DWG № 001 — rev. 2026
+      </span>
+    </div>
+  )
+}
+
 export function Hero({ locale }: { locale: Locale }) {
   return (
     <section className="relative -mx-4 overflow-hidden px-4 pt-16 pb-14 sm:pt-24 sm:pb-20">
-      <div className="hero-glow absolute inset-0 -z-10" aria-hidden="true" />
-      <div className="blueprint-grid absolute inset-0 -z-10" aria-hidden="true" />
+      <HeroBackdrop />
 
       <Reveal>
         <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b border-hairline pb-3">
@@ -32,8 +74,18 @@ export function Hero({ locale }: { locale: Locale }) {
         ))}
       </h1>
 
-      <Reveal delay={0.55}>
-        <p className="mt-7 max-w-2xl font-sans text-lg leading-relaxed text-muted-foreground sm:text-xl">
+      <Reveal delay={0.5}>
+        <div className="mt-6 max-w-xl">
+          <div className="ruler" />
+          <div className="mt-1.5 flex justify-between">
+            <Annotation className="text-muted-foreground/60">Scale 1:1</Annotation>
+            <Annotation className="text-muted-foreground/60">{"UNS '26"}</Annotation>
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal delay={0.6}>
+        <p className="mt-6 max-w-2xl font-sans text-lg leading-relaxed text-muted-foreground sm:text-xl">
           {tr(profile.headline, locale)}
         </p>
       </Reveal>

@@ -49,6 +49,8 @@ export interface Project {
     outlet: string
     title: L<string>
     url: string
+    /** Local thumbnail of the article's cover image, under /public. */
+    image?: string
   }[]
   /** Verified headline numbers rendered big on featured cards. */
   metrics?: {

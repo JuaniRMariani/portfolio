@@ -100,21 +100,42 @@ body::after {
 }
 
 @layer utilities {
-  /* blueprint hairline grid — fades out towards the bottom */
-  .blueprint-grid {
-    background-image:
-      linear-gradient(to right, oklch(0.3 0.045 255 / 0.35) 1px, transparent 1px),
-      linear-gradient(to bottom, oklch(0.3 0.045 255 / 0.35) 1px, transparent 1px);
-    background-size: 72px 72px;
-    mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
-  }
-
   /* ambient glow behind the hero: warm orange + cool navy counterlight */
   .hero-glow {
     background:
-      radial-gradient(ellipse 55% 45% at 16% 10%, oklch(0.72 0.19 50 / 0.13), transparent 65%),
-      radial-gradient(ellipse 45% 40% at 88% 30%, oklch(0.5 0.1 260 / 0.22), transparent 60%),
-      radial-gradient(ellipse 50% 35% at 60% 95%, oklch(0.72 0.19 50 / 0.05), transparent 60%);
+      radial-gradient(ellipse 50% 55% at 85% 20%, oklch(0.72 0.19 50 / 0.1), transparent 62%),
+      radial-gradient(ellipse 45% 40% at 8% 75%, oklch(0.5 0.1 260 / 0.2), transparent 60%);
+  }
+
+  /* technical-drawing section-cut hatching */
+  .hatch {
+    background-image: repeating-linear-gradient(
+      45deg,
+      oklch(0.72 0.19 50 / 0.35) 0,
+      oklch(0.72 0.19 50 / 0.35) 1px,
+      transparent 1px,
+      transparent 9px
+    );
+  }
+
+  /* engineering scale bar: tick marks over a baseline */
+  .ruler {
+    height: 10px;
+    border-bottom: 1px solid var(--hairline);
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--hairline) 0,
+      var(--hairline) 1px,
+      transparent 1px,
+      transparent 22px
+    );
+  }
+
+  .scrollbar-hidden {
+    scrollbar-width: none;
+  }
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
   }
 
   /* orange highlighter block behind a display word */
