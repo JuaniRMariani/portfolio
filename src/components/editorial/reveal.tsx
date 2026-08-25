@@ -30,8 +30,8 @@ export function Reveal({ children, delay = 0, className, as = "div" }: RevealPro
       ref={ref}
       data-reveal
       className={className}
-      animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-      transition={enabled ? { delay: show ? delay : 0, duration: 0.5, ease: "easeOut" } : { duration: 0 }}
+      animate={show ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.98 }}
+      transition={enabled ? { delay: show ? delay : 0, duration: 0.8, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
     >
       {children}
     </Component>

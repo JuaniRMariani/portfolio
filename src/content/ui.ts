@@ -3,6 +3,7 @@ import type { L } from "./types"
 export const ui = {
   nav: {
     about: { en: "About", es: "Sobre mí" } satisfies L<string>,
+    services: { en: "Freelance Services", es: "Servicios Freelance" } satisfies L<string>,
     experience: { en: "Experience", es: "Experiencia" } satisfies L<string>,
     projects: { en: "Projects", es: "Proyectos" } satisfies L<string>,
     ai: { en: "How I work", es: "Cómo trabajo" } satisfies L<string>,

@@ -3,6 +3,7 @@ import { GitHubIcon } from "@/components/icons"
 import { projects, ui, tr, type Locale, type Project } from "@/content"
 import { SectionShell } from "@/components/editorial/section-shell"
 import { Annotation } from "@/components/editorial/annotation"
+import { Reveal } from "@/components/editorial/reveal"
 import { PressCarousel } from "@/components/editorial/press-carousel"
 import { cn } from "@/lib/utils"
 
@@ -128,11 +129,15 @@ export function Projects({ locale }: { locale: Locale }) {
     <SectionShell id="projects" index="03" title={tr(ui.nav.projects, locale)}>
       <div className="space-y-5">
         {featured.map((project, i) => (
-          <ProjectCard key={project.slug} project={project} figure={`3.${i + 1}`} locale={locale} />
+          <Reveal key={project.slug} delay={i * 0.2}>
+            <ProjectCard project={project} figure={`3.${i + 1}`} locale={locale} />
+          </Reveal>
         ))}
         <div className="grid gap-5 lg:grid-cols-2">
           {rest.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} figure={`3.${featured.length + i + 1}`} locale={locale} />
+            <Reveal key={project.slug} delay={i * 0.15}>
+              <ProjectCard project={project} figure={`3.${featured.length + i + 1}`} locale={locale} />
+            </Reveal>
           ))}
         </div>
       </div>

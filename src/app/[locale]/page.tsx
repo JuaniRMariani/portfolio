@@ -3,6 +3,7 @@ import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { Hero } from "@/features/hero/hero"
 import { About } from "@/features/about/about"
+import { Services } from "@/features/services/services"
 import { Experience } from "@/features/experience/experience"
 import { Projects } from "@/features/projects/projects"
 import { AiEngineering } from "@/features/ai-engineering/ai-engineering"
@@ -17,9 +18,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <AnimationProvider>
       <Header locale={locale} />
-      <main className="mx-auto max-w-5xl px-4">
-        <Hero locale={locale} />
+      <Hero locale={locale} />
+      <main className="mx-auto max-w-5xl px-4 pt-10">
         <About locale={locale} />
+        <Services locale={locale} />
         <Experience locale={locale} />
         <Projects locale={locale} />
         <AiEngineering locale={locale} />

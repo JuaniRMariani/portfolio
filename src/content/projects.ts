@@ -35,6 +35,56 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "food-partners",
+    name: "Food Partners Patagonia",
+    role: {
+      en: "Lead Engineer — Xenova",
+      es: "Lead Engineer — Xenova",
+    },
+    summary: {
+      en: "Enterprise system for an integrated seafood exporter (red shrimp, king crab) facing international audits and demanding wholesale buyers.",
+      es: "Sistema empresarial para un exportador integrado de productos del mar con auditorías internacionales y compradores mayoristas exigentes.",
+    },
+    highlights: [
+      {
+        en: "Built a custom ERP module to track inventory and export operations across the supply chain.",
+        es: "Construí un módulo ERP a medida para rastrear inventario y operaciones de exportación en toda la cadena de suministro.",
+      },
+      {
+        en: "Handled full-stack development from database schema to the final user interface.",
+        es: "Lideré el desarrollo full-stack desde el esquema de base de datos hasta la interfaz de usuario.",
+      },
+    ],
+    stack: ["React", "Laravel", "MySQL"],
+    status: "production",
+    featured: true,
+  },
+  {
+    slug: "madryn-buceo",
+    name: "Madryn Buceo",
+    role: {
+      en: "Full-stack Engineer — Xenova",
+      es: "Ingeniero Full-stack — Xenova",
+    },
+    summary: {
+      en: "Digital transformation for an adventure tourism operator, centralizing scattered bookings from manual channels into a single platform.",
+      es: "Transformación digital para un operador de turismo de aventura, centralizando reservas dispersas de canales manuales en una sola plataforma.",
+    },
+    highlights: [
+      {
+        en: "Integrated secure payment processing (Stripe) and automated booking confirmations.",
+        es: "Integración de pagos seguros (Stripe) y confirmaciones de reservas automatizadas.",
+      },
+      {
+        en: "Developed a modern, responsive frontend with Next.js and a robust Node.js API.",
+        es: "Desarrollé un frontend moderno y responsivo con Next.js y una API robusta en Node.js.",
+      },
+    ],
+    stack: ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
+    status: "production",
+    featured: false,
+  },
+  {
     slug: "agro-bcs",
     name: "Agro BCS",
     role: {
