@@ -4,7 +4,7 @@ import { GitHubIcon, LinkedInIcon } from "./icons"
 import { profile } from "@/content"
 
 interface SocialLink {
-  icon: React.ElementType
+  icon: React.ComponentType<{ size?: number; className?: string }>
   href: string
   label: string
 }

@@ -8,7 +8,7 @@ export function LocaleSwitcher({ locale }: { locale: Locale }) {
     <Link
       href={`/${other}`}
       aria-label={tr(ui.switchLocale, locale)}
-      className="rounded border border-border px-2 py-1 font-mono text-xs text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+      className="flex min-h-9 items-center rounded-md border border-border px-2.5 font-mono text-xs text-muted-foreground transition-colors hover:border-primary hover:text-primary"
     >
       {other.toUpperCase()}
     </Link>
