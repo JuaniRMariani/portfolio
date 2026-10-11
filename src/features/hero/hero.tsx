@@ -41,8 +41,8 @@ export function Hero({ locale }: { locale: Locale }) {
                 data-line
                 className={
                   i === 0
-                    ? "block text-[clamp(2.6rem,10.5vw,9.5rem)] text-foreground"
-                    : "text-ember block text-[clamp(2.6rem,10.5vw,9.5rem)]"
+                    ? "block text-[clamp(3rem,12.5vw,9.5rem)] lg:text-[clamp(3rem,10.5vw,9.5rem)] text-foreground"
+                    : "text-ember block text-[clamp(3rem,12.5vw,9.5rem)] lg:text-[clamp(3rem,10.5vw,9.5rem)]"
                 }
               >
                 {line}

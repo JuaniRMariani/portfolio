@@ -73,7 +73,7 @@ const fragment = /* glsl */ `
     vec3 col = mix(night, deep, smoothstep(0.2, 0.8, f));
     col += frost * 0.12 * smoothstep(0.55, 0.9, q.y) * (1.0 - uHeat * 0.6);
     vec3 hot = mix(coral, mix(ember, amber, smoothstep(0.6, 1.0, f)), smoothstep(0.3, 0.9, veins));
-    col += hot * veins * (0.35 + 0.75 * uHeat);
+    col += hot * veins * (0.3 + 0.5 * uHeat);
 
     // cursor warmth
     col += ember * 0.12 * exp(-md * 3.2) * (0.6 + 0.4 * uHeat);
@@ -85,6 +85,9 @@ const fragment = /* glsl */ `
     float sd = length((uv - 0.5) * vec2(aspect, 1.0) - uShockAt * 0.5 * vec2(aspect, 1.0));
     float ring = uShock * smoothstep(0.06, 0.0, abs(sd - (1.0 - uShock) * 1.2));
     col += amber * ring * 0.5;
+
+    // soft highlight roll-off keeps flames rich but never blown out behind text
+    col = col / (1.0 + max(col.r, max(col.g, col.b)) * 0.55);
 
     // vignette
     float vig = smoothstep(1.25, 0.25, length((uv - 0.5) * vec2(aspect * 0.8, 1.0)));

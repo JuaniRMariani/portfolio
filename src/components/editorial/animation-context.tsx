@@ -1,7 +1,6 @@
 "use client"
 
 import { createContext, useContext, useSyncExternalStore, type ReactNode } from "react"
-import { useReducedMotion } from "motion/react"
 
 /* Session-scoped "skip animations" flag lives in sessionStorage; exposed
    to React via useSyncExternalStore so SSR snapshots stay consistent. */
@@ -29,6 +28,20 @@ function writeSkipped() {
   listeners.forEach((listener) => listener())
 }
 
+/* prefers-reduced-motion as an external store: the server snapshot (false)
+   is used during hydration, so SSR markup and the first client render agree. */
+const REDUCED_QUERY = "(prefers-reduced-motion: reduce)"
+
+function subscribeReduced(listener: () => void) {
+  const query = window.matchMedia(REDUCED_QUERY)
+  query.addEventListener("change", listener)
+  return () => query.removeEventListener("change", listener)
+}
+
+function readReduced() {
+  return window.matchMedia(REDUCED_QUERY).matches
+}
+
 interface AnimationState {
   /** Whether reveal animations should play. */
   enabled: boolean
@@ -39,7 +52,7 @@ interface AnimationState {
 const AnimationContext = createContext<AnimationState>({ enabled: true, skip: () => {} })
 
 export function AnimationProvider({ children }: { children: ReactNode }) {
-  const reducedMotion = useReducedMotion()
+  const reducedMotion = useSyncExternalStore(subscribeReduced, readReduced, () => false)
   const skipped = useSyncExternalStore(subscribe, readSkipped, () => false)
 
   return (

@@ -21,10 +21,10 @@ Plan: `~/.claude/plans/eager-soaring-eagle.md`
 ## Integration
 - [x] typecheck / lint / build green
 - [x] `out/en.html` + `out/es.html` keep all text
-- [ ] Browser QA 375/768/1440, reduced motion, console clean (desktop 1440 hero/about/services/experience done; rest pending — user asked to pause browser windows)
+- [x] Browser QA 375/1440 all sections, terminal, breakout, reduced motion, console clean
 
 ## Review
 - tsc / eslint / `pnpm build` green; `out/en.html` + `out/es.html` contain every project, job, bullet, press outlet and email.
 - Bugs found in QA and fixed: WebGL canvas hidden behind body background (moved fallback bg to `html`, content layer `z-10` over stage `z-0`); washed-out colors from sRGB/tone-mapping (`<Canvas flat linear>`); headline words lost spaces (SplitWords); wrapped name broke particle sampling (now word-by-word via DOM Ranges).
-- Open: one headed run loaded scrolled to ~14% — likely the user's own wheel input on the popped window; re-check. Mobile 375 + reduced-motion + games still need a visual pass.
+- QA round 2: load starts at scrollY 0 (earlier 14% was external wheel input). Fixed: blown-out flames at page end (shader highlight roll-off, contact heat 0.85); small/noisy mobile particle name (bigger mobile type, tighter jitter, 7k budget); hydration mismatch under reduced motion (`useReducedMotion` → `useSyncExternalStore` with server snapshot). 375px: no horizontal overflow.
 - Optional assets: `/public/images/me-cutout.webp` (`HAS_CUTOUT` in about/portrait.tsx), `/public/media/<slug>.mp4` (`PROJECT_MEDIA` in projects/project-screen.tsx).

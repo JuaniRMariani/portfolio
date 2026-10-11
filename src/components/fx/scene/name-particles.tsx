@@ -99,10 +99,12 @@ function sampleHeroName(maxCount: number): Sample | null {
   const data = ctx.getImageData(0, 0, vw, height).data
   const fontPx = parseFloat(getComputedStyle(lines[0]).fontSize)
   const step = Math.max(2, Math.round(fontPx / 34))
+  // small type needs tighter dots to stay legible
+  const jitter = fontPx < 80 ? 0.5 : 1.1
   const points: number[] = []
   for (let y = 0; y < height; y += step) {
     for (let x = 0; x < vw; x += step) {
-      if (data[(y * vw + x) * 4 + 3] > 140) points.push(x + (Math.random() - 0.5) * step * 1.1, y + top + (Math.random() - 0.5) * step * 1.1)
+      if (data[(y * vw + x) * 4 + 3] > 140) points.push(x + (Math.random() - 0.5) * step * jitter, y + top + (Math.random() - 0.5) * step * jitter)
     }
   }
   let count = points.length / 2
@@ -119,7 +121,7 @@ function sampleHeroName(maxCount: number): Sample | null {
 }
 
 const MAX_DESKTOP = 11000
-const MAX_MOBILE = 4500
+const MAX_MOBILE = 7000
 
 /**
  * The hero name as ~10k ember particles. Each particle springs toward its
@@ -249,7 +251,7 @@ export function NameParticles() {
     const exit = fx.heroExit
     m.uniforms.uTime.value += delta
     m.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2)
-    m.uniforms.uSize.value = size.width < 640 ? 3 : 3.8
+    m.uniforms.uSize.value = size.width < 640 ? 2.4 : 3.8
     const targetFade = exit >= 1 ? 0 : 1 - exit * 0.85
     m.uniforms.uFade.value += (targetFade - m.uniforms.uFade.value) * 0.06
 

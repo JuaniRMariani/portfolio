@@ -14,7 +14,7 @@ const HEAT: Record<string, number> = {
   projects: 0.9,
   "how-i-work": 0.65,
   skills: 0.55,
-  contact: 1,
+  contact: 0.85,
 }
 
 /**
