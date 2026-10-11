@@ -3,6 +3,7 @@
 import { useEffect, useState, type ComponentType } from "react"
 import { useAnimation } from "@/components/editorial/animation-context"
 import { fx } from "./scene/store"
+import { startDeviceTilt } from "./device-tilt"
 
 type StageComponent = ComponentType<{ live: boolean; onReady?: () => void }>
 
@@ -25,19 +26,46 @@ export function FxLayer() {
   const [Stage, setStage] = useState<StageComponent | null>(null)
 
   useEffect(() => {
-    const onMove = (event: PointerEvent) => {
-      fx.pointer.x = event.clientX
-      fx.pointer.y = event.clientY
-      fx.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-      fx.mouse.y = -((event.clientY / window.innerHeight) * 2 - 1)
+    const setPoint = (clientX: number, clientY: number) => {
+      fx.pointer.x = clientX
+      fx.pointer.y = clientY
+      fx.mouse.x = (clientX / window.innerWidth) * 2 - 1
+      fx.mouse.y = -((clientY / window.innerHeight) * 2 - 1)
     }
-    window.addEventListener("pointermove", onMove, { passive: true })
-    window.addEventListener("pointerdown", onMove, { passive: true })
+    const onPointer = (event: PointerEvent) => {
+      if (event.pointerType === "mouse" || event.pointerType === "pen") setPoint(event.clientX, event.clientY)
+    }
+    // Touch events keep firing while the page scrolls (pointer events get
+    // cancelled), so a finger dragged across the hero carves the particles.
+    const onTouch = (event: TouchEvent) => {
+      const touch = event.touches[0]
+      if (touch) setPoint(touch.clientX, touch.clientY)
+    }
+    const onTouchEnd = () => {
+      fx.pointer.x = -9999
+      fx.pointer.y = -9999
+    }
+    window.addEventListener("pointermove", onPointer, { passive: true })
+    window.addEventListener("pointerdown", onPointer, { passive: true })
+    window.addEventListener("touchstart", onTouch, { passive: true })
+    window.addEventListener("touchmove", onTouch, { passive: true })
+    window.addEventListener("touchend", onTouchEnd, { passive: true })
+    window.addEventListener("touchcancel", onTouchEnd, { passive: true })
     return () => {
-      window.removeEventListener("pointermove", onMove)
-      window.removeEventListener("pointerdown", onMove)
+      window.removeEventListener("pointermove", onPointer)
+      window.removeEventListener("pointerdown", onPointer)
+      window.removeEventListener("touchstart", onTouch)
+      window.removeEventListener("touchmove", onTouch)
+      window.removeEventListener("touchend", onTouchEnd)
+      window.removeEventListener("touchcancel", onTouchEnd)
     }
   }, [])
+
+  // Phones: tilting the device steers the ember field, particles and cards.
+  useEffect(() => {
+    if (!enabled || !window.matchMedia("(pointer: coarse)").matches) return
+    return startDeviceTilt()
+  }, [enabled])
 
   useEffect(() => {
     if (!supportsWebGL()) return

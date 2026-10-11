@@ -7,6 +7,7 @@ import { useAnimation } from "@/components/editorial/animation-context"
 import { Annotation } from "@/components/editorial/annotation"
 import { Reveal } from "@/components/editorial/reveal"
 import { TiltCard } from "@/components/fx/tilt-card"
+import { HuntEmber } from "@/components/play/ember-hunt"
 
 export interface Service {
   icon: "monitor" | "bot" | "server"
@@ -27,20 +28,25 @@ const LOOPS: Record<Service["icon"], TargetAndTransition> = {
 
 const WHAT_YOU_GET: L<string> = { en: "What you get", es: "Qué obtenés" }
 
+/* Phones: cards pin and stack like a deck as you scroll past them. */
+const STACK = ["max-md:sticky max-md:top-24", "max-md:sticky max-md:top-28", "max-md:sticky max-md:top-32"]
+
 export function ServiceCards({ services, locale }: { services: Service[]; locale: Locale }) {
   const { enabled } = useAnimation()
 
   return (
-    <div className="grid gap-5 md:grid-cols-3">
+    <div className="relative grid gap-5 md:grid-cols-3">
+      <HuntEmber n={3} className="-top-12 right-[18%]" />
+      <HuntEmber n={4} className="-bottom-10 left-[38%] max-md:-bottom-14" />
       {services.map((service, i) => {
         const Icon = ICONS[service.icon]
         const number = String(i + 1).padStart(2, "0")
         return (
-          <Reveal key={service.icon} delay={i * 0.14} className="h-full">
+          <Reveal key={service.icon} delay={i * 0.14} className={`h-full ${STACK[i] ?? ""}`}>
             <TiltCard
               as="article"
               max={6}
-              className="panel ember-border group flex h-full min-h-[24rem] flex-col rounded-xl p-7 sm:min-h-[27rem] sm:p-8"
+              className="panel ember-border group flex h-full min-h-[24rem] flex-col rounded-xl p-7 max-md:min-h-[21rem] stack-solid sm:min-h-[27rem] sm:p-8"
             >
               <div className="flex items-start justify-between gap-4">
                 <span className="relative flex size-14 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/30 transition-[background,color,box-shadow] duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[0_0_0_1px_oklch(0.74_0.22_46/0.5),0_10px_40px_-8px_oklch(0.74_0.22_46/0.7)]">

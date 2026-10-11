@@ -50,10 +50,11 @@ export const ui = {
   },
   play: {
     hint: {
-      en: "Psst — this page hides 7 secrets. Press / for the terminal.",
-      es: "Psst — esta página esconde 7 secretos. Apretá / para la terminal.",
+      en: "Psst — this page hides 8 secrets. Press / for the terminal.",
+      es: "Psst — esta página esconde 8 secretos. Apretá / para la terminal.",
     } satisfies L<string>,
-    heroHint: { en: "move · click · break it", es: "mové · clickeá · rompelo" } satisfies L<string>,
+    heroHint: { en: "move · click · hold to charge", es: "mové · clickeá · mantené para cargar" } satisfies L<string>,
+    heroHintTouch: { en: "tilt · drag · hold to charge", es: "inclinalo · arrastrá · mantené" } satisfies L<string>,
     scroll: { en: "scroll", es: "scroll" } satisfies L<string>,
     terminal: { en: "Open terminal", es: "Abrir terminal" } satisfies L<string>,
     copied: { en: "Email copied to clipboard", es: "Email copiado al portapapeles" } satisfies L<string>,
@@ -89,6 +90,10 @@ export const ui = {
       "hidden-ember": {
         title: { en: "Sharp eye — found the hidden ember", es: "Ojo de águila — encontraste la brasa oculta" },
         hint: { en: "Something glows where it shouldn't", es: "Algo brilla donde no debería" },
+      },
+      "ember-hunt": {
+        title: { en: "Ember hunter — caught all five embers", es: "Cazador de brasas — atrapaste las cinco" },
+        hint: { en: "Five embers drift before Experience", es: "Cinco brasas flotan antes de Experiencia" },
       },
       "the-end": {
         title: { en: "Completionist — read until the end", es: "Completista — leíste hasta el final" },
@@ -179,8 +184,8 @@ export const ui = {
       es: "rm: me niego a prender fuego el portfolio. Costó construirlo.",
     } satisfies L<string>,
     secrets: {
-      en: "There are 7 secrets on this page. You've found",
-      es: "Hay 7 secretos en esta página. Encontraste",
+      en: "There are 8 secrets on this page. You've found",
+      es: "Hay 8 secretos en esta página. Encontraste",
     } satisfies L<string>,
     notFound: { en: "command not found:", es: "comando no encontrado:" } satisfies L<string>,
     didYouMean: { en: "did you mean", es: "quisiste decir" } satisfies L<string>,

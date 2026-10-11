@@ -121,7 +121,7 @@ export function EmberField() {
     const now = performance.now()
     u.uTime.value += fx.live ? Math.min(delta, 0.05) : 0
     u.uRes.value.set(size.width, size.height)
-    u.uMouse.value.lerp(target.current.set(fx.mouse.x, fx.mouse.y), 0.06)
+    u.uMouse.value.lerp(target.current.set(fx.mouse.x + fx.tilt.x * 0.8, fx.mouse.y + fx.tilt.y * 0.8), 0.06)
     u.uScroll.value += (fx.scroll - u.uScroll.value) * 0.08
     u.uHeat.value += (fx.heat - u.uHeat.value) * 0.03
     u.uBurst.value = Math.max(0, 1 - (now - fx.burstAt) / 2600)

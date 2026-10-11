@@ -23,6 +23,7 @@ export const ACHIEVEMENT_IDS = [
   "breakout",
   "copy-email",
   "hidden-ember",
+  "ember-hunt",
   "the-end",
 ] as const
 export type AchievementId = (typeof ACHIEVEMENT_IDS)[number]

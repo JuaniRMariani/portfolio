@@ -4,6 +4,7 @@ import { Annotation } from "@/components/editorial/annotation"
 import { Reveal } from "@/components/editorial/reveal"
 import { Portrait } from "./portrait"
 import { ScrubLead } from "./scrub-lead"
+import { HuntEmber } from "@/components/play/ember-hunt"
 
 /** Bahía Blanca, Argentina. */
 const COORDS = "38.7183° S · 62.2663° W"
@@ -19,7 +20,9 @@ export function About({ locale }: { locale: Locale }) {
 
   return (
     <SectionShell id="about" index="01" title={tr(ui.nav.about, locale)}>
-      <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-16">
+      <div className="relative grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-16">
+        <HuntEmber n={1} className="-top-8 left-[52%]" />
+        <HuntEmber n={2} className="-bottom-12 right-[8%] lg:right-[42%]" />
         <div className="order-2 lg:order-1">
           <Annotation className="text-primary">{"// 01.1 — profile"}</Annotation>
           {lead && (

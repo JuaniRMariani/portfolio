@@ -6,6 +6,7 @@ import { SocialLinks } from "@/components/social-links"
 import { Magnetic } from "@/components/fx/magnetic"
 import { SplitWords } from "@/components/fx/split-words"
 import { HeroInteraction } from "./hero-interaction"
+import { HuntEmber } from "@/components/play/ember-hunt"
 
 const NAME_LINES = ["Juan Ignacio", "Rodríguez Mariani"]
 
@@ -19,6 +20,7 @@ export function Hero({ locale }: { locale: Locale }) {
   return (
     <HeroInteraction>
       <div className="relative mx-auto w-full max-w-6xl">
+        <HuntEmber n={0} className="top-[44%] right-[2%] sm:right-[6%]" />
         <Reveal delay={0.1}>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span className="panel inline-flex items-center gap-2.5 rounded-full px-4 py-2 font-mono text-[11px] font-bold tracking-[0.12em] text-primary uppercase">
@@ -110,7 +112,8 @@ export function Hero({ locale }: { locale: Locale }) {
         </span>
         <span className="particles-hint flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] text-primary uppercase">
           <MousePointerClick className="size-3.5" aria-hidden="true" />
-          {tr(ui.play.heroHint, locale)}
+          <span className="[@media(pointer:coarse)]:hidden">{tr(ui.play.heroHint, locale)}</span>
+          <span className="hidden [@media(pointer:coarse)]:inline">{tr(ui.play.heroHintTouch, locale)}</span>
         </span>
       </div>
     </HeroInteraction>

@@ -228,7 +228,8 @@ export function NameParticles() {
           const dx = s.pos[ix] - mx
           const dy = s.pos[ix + 1] - my
           const d = Math.hypot(dx, dy) + 0.0001
-          const force = global ? 0.25 + Math.random() * 0.35 : Math.max(0, 1.6 - d) * 0.55
+          const power = global ? 1 : fx.shockPower
+          const force = global ? 0.25 + Math.random() * 0.35 : Math.max(0, 1.6 * power - d) * 0.55 * power
           if (force <= 0) continue
           s.vel[ix] += (dx / d) * force * (0.6 + Math.random())
           s.vel[ix + 1] += (dy / d) * force * (0.6 + Math.random()) + (global ? 0.1 : 0)
@@ -257,8 +258,10 @@ export function NameParticles() {
 
     // the group rides the page scroll so the name stays glued to the hero
     points.current.position.y = scrollWorld
-    points.current.rotation.y += (fx.mouse.x * 0.12 - points.current.rotation.y) * 0.04
-    points.current.rotation.x += (-fx.mouse.y * 0.08 - points.current.rotation.x) * 0.04
+    const lookX = fx.mouse.x * 0.12 + fx.tilt.x * 0.35
+    const lookY = fx.mouse.y * 0.08 + fx.tilt.y * 0.25
+    points.current.rotation.y += (lookX - points.current.rotation.y) * 0.05
+    points.current.rotation.x += (-lookY - points.current.rotation.x) * 0.05
 
     if (exit >= 1 && m.uniforms.uFade.value < 0.01) return
 

@@ -22,6 +22,10 @@ export const fx = {
   shockAt: -1e9,
   /** Shockwave origin in NDC. */
   shock: { x: 0, y: 0 },
+  /** Shockwave strength multiplier (1 = tap, up to ~3 for a charged hold). */
+  shockPower: 1,
+  /** Device tilt from the gyroscope, smoothed, -1..1 (phones only). */
+  tilt: { x: 0, y: 0 },
   /** Whether the canvas should animate (false = static frame). */
   live: true,
 }
