@@ -5,7 +5,7 @@ import { Canvas, useThree } from "@react-three/fiber"
 import { PerformanceMonitor } from "@react-three/drei"
 import { EffectComposer, Bloom } from "@react-three/postprocessing"
 import { EmberField } from "./ember-field"
-import { NameParticles } from "./name-particles"
+import { NameParticles, Sparks } from "./name-particles"
 import { fx } from "./store"
 
 /** Re-renders a single frame whenever the scene is static (reduced motion / skipped). */
@@ -41,7 +41,9 @@ export default function Stage({ live, onReady }: { live: boolean; onReady?: () =
 
   return (
     <Canvas
-      className="!fixed inset-0 -z-10 !h-dvh !w-screen"
+      flat
+      linear
+      className="!fixed inset-0 z-0 !h-dvh !w-screen"
       style={{ pointerEvents: "none" }}
       aria-hidden="true"
       dpr={[0.75, Math.min(dpr, maxDpr)]}
@@ -57,6 +59,7 @@ export default function Stage({ live, onReady }: { live: boolean; onReady?: () =
         onFallback={() => setDpr(0.75)}
       >
         <EmberField />
+        <Sparks count={coarse ? 180 : 420} />
         <NameParticles />
         <EffectComposer multisampling={0}>
           <Bloom intensity={0.9} luminanceThreshold={0.42} luminanceSmoothing={0.3} mipmapBlur radius={0.7} />

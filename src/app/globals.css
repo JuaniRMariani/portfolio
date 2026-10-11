@@ -76,17 +76,17 @@
     @apply border-border outline-ring/50;
   }
   html {
-    background: var(--background);
     color-scheme: dark;
-  }
-  body {
-    @apply text-foreground;
-    /* static fallback atmosphere — the WebGL ember field paints over it */
+    /* static fallback atmosphere on the root — the fixed WebGL ember field
+       (negative z-index) paints over it, so body must stay transparent */
     background:
       radial-gradient(ellipse 60% 50% at 80% 10%, oklch(0.74 0.22 46 / 0.16), transparent 65%),
       radial-gradient(ellipse 50% 45% at 10% 80%, oklch(0.45 0.14 262 / 0.35), transparent 60%),
       var(--background);
     background-attachment: fixed;
+  }
+  body {
+    @apply text-foreground;
   }
   :focus-visible {
     outline: 2px solid var(--ring);
@@ -302,7 +302,59 @@ html.has-fx-cursor * {
   }
 }
 
+/* ─── Preloader (first visit per session, JS + motion only) ─── */
+.preloader {
+  display: none;
+}
+html[data-preload] .preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+  animation: preloader-failsafe 0.01s 3s forwards;
+}
+html[data-preload] .preloader.preloader-out {
+  clip-path: inset(0 0 100% 0);
+}
+@keyframes preloader-failsafe {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* ─── Hero handover: DOM heading ↔ particle twin ─── */
+.hero-name [data-line] {
+  transition: opacity 0.9s ease;
+}
+html[data-particles] .hero-name [data-line] {
+  opacity: 0;
+}
+.particles-hint {
+  opacity: 0;
+  transition: opacity 0.6s ease 0.4s;
+}
+html[data-particles] .particles-hint {
+  opacity: 1;
+}
+.scroll-cue {
+  animation: scroll-cue 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .scroll-cue,
   .status-pulse,
   .float-slow,
   .ember-border::after {

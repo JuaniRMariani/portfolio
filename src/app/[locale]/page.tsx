@@ -4,6 +4,7 @@ import { Terminal } from "@/components/play/terminal"
 import { FxLayer } from "@/components/fx/fx-layer"
 import { SmoothScroll } from "@/components/fx/smooth-scroll"
 import { Cursor } from "@/components/fx/cursor"
+import { Preloader } from "@/components/fx/preloader"
 import { ScrollHud } from "@/components/fx/scroll-hud"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
@@ -35,22 +36,26 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <AnimationProvider>
       <PlayProvider locale={locale}>
+        <Preloader />
         <FxLayer />
         <SmoothScroll />
         <Cursor />
         <ScrollHud labels={hudLabels} />
         <Header locale={locale} />
-        <Hero locale={locale} />
-        <main className="relative mx-auto max-w-6xl px-4 sm:px-6">
-          <About locale={locale} />
-          <Services locale={locale} />
-          <Experience locale={locale} />
-          <Projects locale={locale} />
-          <AiEngineering locale={locale} />
-          <Skills locale={locale} />
-          <Contact locale={locale} />
-        </main>
-        <Footer locale={locale} />
+        {/* content layer floats above the fixed WebGL stage (z-0) */}
+        <div className="relative z-10">
+          <Hero locale={locale} />
+          <main className="relative mx-auto max-w-6xl px-4 sm:px-6">
+            <About locale={locale} />
+            <Services locale={locale} />
+            <Experience locale={locale} />
+            <Projects locale={locale} />
+            <AiEngineering locale={locale} />
+            <Skills locale={locale} />
+            <Contact locale={locale} />
+          </main>
+          <Footer locale={locale} />
+        </div>
         <Terminal locale={locale} />
       </PlayProvider>
     </AnimationProvider>
