@@ -1,30 +1,36 @@
 @import "tailwindcss";
 
-/* ─── Technical Editorial theme — ink navy + electric orange ─── */
+/* ─── Ember Field theme — deep Patagonian navy + live ember orange ─── */
 :root {
-  --background: oklch(0.18 0.035 255);
-  --foreground: oklch(0.95 0.012 75);
-  --card: oklch(0.215 0.04 255);
-  --card-foreground: oklch(0.95 0.012 75);
-  --popover: oklch(0.215 0.04 255);
-  --popover-foreground: oklch(0.95 0.012 75);
-  --primary: oklch(0.72 0.19 50);
-  --primary-foreground: oklch(0.15 0.03 255);
-  --secondary: oklch(0.25 0.04 255);
-  --secondary-foreground: oklch(0.95 0.012 75);
-  --muted: oklch(0.24 0.04 255);
-  --muted-foreground: oklch(0.74 0.04 250);
-  --accent: oklch(0.72 0.19 50);
-  --accent-foreground: oklch(0.15 0.03 255);
-  --destructive: oklch(0.6 0.22 25);
-  --destructive-foreground: oklch(0.95 0.012 75);
-  --border: oklch(0.3 0.045 255);
-  --input: oklch(0.25 0.04 255);
-  --ring: oklch(0.72 0.19 50);
-  --radius: 0.25rem;
+  --background: oklch(0.13 0.05 262);
+  --foreground: oklch(0.96 0.012 75);
+  --card: oklch(0.19 0.06 262);
+  --card-foreground: oklch(0.96 0.012 75);
+  --popover: oklch(0.19 0.06 262);
+  --popover-foreground: oklch(0.96 0.012 75);
+  --primary: oklch(0.74 0.22 46);
+  --primary-foreground: oklch(0.14 0.04 262);
+  --secondary: oklch(0.23 0.065 262);
+  --secondary-foreground: oklch(0.96 0.012 75);
+  --muted: oklch(0.22 0.06 262);
+  --muted-foreground: oklch(0.77 0.045 250);
+  --accent: oklch(0.84 0.17 75);
+  --accent-foreground: oklch(0.14 0.04 262);
+  --destructive: oklch(0.62 0.23 25);
+  --destructive-foreground: oklch(0.96 0.012 75);
+  --border: oklch(0.32 0.07 262);
+  --input: oklch(0.23 0.065 262);
+  --ring: oklch(0.74 0.22 46);
+  --radius: 0.5rem;
 
-  /* hairline for blueprint rules — slightly fainter than --border */
-  --hairline: oklch(0.27 0.045 255);
+  --hairline: oklch(0.3 0.065 262);
+  /* ember gradient stops */
+  --amber: oklch(0.84 0.17 75);
+  --ember: oklch(0.74 0.22 46);
+  --coral: oklch(0.65 0.24 28);
+  /* cold counterlight — depth only, use sparingly */
+  --frost: oklch(0.72 0.13 225);
+  --glass: oklch(0.17 0.055 262 / 0.55);
 }
 
 @theme inline {
@@ -52,34 +58,62 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-hairline: var(--hairline);
-  --radius-sm: calc(var(--radius) - 2px);
+  --color-amber: var(--amber);
+  --color-ember: var(--ember);
+  --color-coral: var(--coral);
+  --color-frost: var(--frost);
+  --color-glass: var(--glass);
+  --radius-sm: calc(var(--radius) - 4px);
   --radius-md: var(--radius);
-  --radius-lg: calc(var(--radius) + 2px);
-  --radius-xl: calc(var(--radius) + 6px);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 10px);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
+    color-scheme: dark;
+    /* static fallback atmosphere on the root — the fixed WebGL ember field
+       (negative z-index) paints over it, so body must stay transparent */
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 10%, oklch(0.74 0.22 46 / 0.16), transparent 65%),
+      radial-gradient(ellipse 50% 45% at 10% 80%, oklch(0.45 0.14 262 / 0.35), transparent 60%),
+      var(--background);
+    background-attachment: fixed;
+  }
+  body {
+    @apply text-foreground;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+  /* Lenis drives smooth scrolling; native smooth only as no-JS fallback */
+  html:not(.lenis) {
     scroll-behavior: smooth;
   }
   @media (prefers-reduced-motion: reduce) {
-    html {
+    html:not(.lenis) {
       scroll-behavior: auto;
     }
+  }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-stopped {
+    overflow: clip;
   }
 }
 
 /* ─── Progressive reveal (SEO-first) ───
    Content is fully present in static HTML. Only when JS is confirmed
-   (html[data-js], set by an inline script) AND motion is allowed do we
-   hide reveal targets so the entrance animation can play. No JS or
-   reduced motion -> everything visible, always. */
+   (html[data-js]) AND motion is allowed do we hide reveal targets so
+   the entrance animation can play. */
 @media (prefers-reduced-motion: no-preference) {
   html[data-js] [data-reveal] {
     opacity: 0;
@@ -88,46 +122,134 @@
 
 /* ─── Effects ─── */
 
-/* film grain over everything, very low opacity */
+/* film grain over everything */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 90;
   pointer-events: none;
-  opacity: 0.045;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-@layer utilities {
-  /* ambient glow behind the hero: warm orange + cool navy counterlight */
-  .hero-glow {
-    background:
-      radial-gradient(ellipse 50% 55% at 85% 20%, oklch(0.72 0.19 50 / 0.1), transparent 62%),
-      radial-gradient(ellipse 45% 40% at 8% 75%, oklch(0.5 0.1 260 / 0.2), transparent 60%);
+/* custom cursor hides the native one only where it is active */
+html.has-fx-cursor,
+html.has-fx-cursor * {
+  cursor: none !important;
+}
+
+@layer components {
+  /* frosted navy panel floating over the ember field */
+  .panel {
+    background: linear-gradient(160deg, oklch(0.22 0.065 262 / 0.62), oklch(0.15 0.05 262 / 0.5));
+    border: 1px solid oklch(0.4 0.08 262 / 0.45);
+    backdrop-filter: blur(14px) saturate(1.3);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    box-shadow:
+      inset 0 1px 0 oklch(1 0 0 / 0.06),
+      0 20px 60px -30px oklch(0 0 0 / 0.8);
   }
 
-  /* technical-drawing section-cut hatching */
+  /* spotlight that follows --mx/--my (set by TiltCard) */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      oklch(0.74 0.22 46 / 0.2),
+      transparent 55%
+    );
+    pointer-events: none;
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  /* rotating conic ember border on hover */
+  .ember-border {
+    position: relative;
+  }
+  .ember-border::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--angle, 0deg),
+      transparent 0%,
+      var(--amber) 10%,
+      var(--ember) 18%,
+      var(--coral) 24%,
+      transparent 34%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: ember-spin 4s linear infinite;
+    pointer-events: none;
+  }
+  .ember-border:hover::after,
+  .ember-border:focus-within::after,
+  .ember-border[data-active="true"]::after {
+    opacity: 1;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes ember-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@layer utilities {
+  .text-ember {
+    background: linear-gradient(100deg, var(--amber) 0%, var(--ember) 45%, var(--coral) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-ember {
+    background: linear-gradient(100deg, var(--amber) 0%, var(--ember) 50%, var(--coral) 100%);
+  }
+  .glow-ember {
+    box-shadow:
+      0 0 0 1px oklch(0.74 0.22 46 / 0.5),
+      0 10px 40px -8px oklch(0.74 0.22 46 / 0.55);
+  }
+  .text-glow {
+    text-shadow: 0 0 28px oklch(0.74 0.22 46 / 0.55);
+  }
+
+  /* technical-drawing hatching */
   .hatch {
     background-image: repeating-linear-gradient(
       45deg,
-      oklch(0.72 0.19 50 / 0.35) 0,
-      oklch(0.72 0.19 50 / 0.35) 1px,
+      oklch(0.74 0.22 46 / 0.35) 0,
+      oklch(0.74 0.22 46 / 0.35) 1px,
       transparent 1px,
       transparent 9px
-    );
-  }
-
-  /* engineering scale bar: tick marks over a baseline */
-  .ruler {
-    height: 10px;
-    border-bottom: 1px solid var(--hairline);
-    background-image: repeating-linear-gradient(
-      to right,
-      var(--hairline) 0,
-      var(--hairline) 1px,
-      transparent 1px,
-      transparent 22px
     );
   }
 
@@ -138,53 +260,112 @@ body::after {
     display: none;
   }
 
-  /* orange highlighter block behind a display word */
-  .ink-block {
-    background: linear-gradient(to top, var(--primary) 0%, var(--primary) 100%) no-repeat;
-    background-size: 100% 38%;
-    background-position: 0 86%;
-  }
-
   /* editorial link underline that sweeps in on hover */
   .link-sweep {
-    background: linear-gradient(to right, var(--primary), var(--primary)) no-repeat;
+    background: linear-gradient(to right, var(--ember), var(--coral)) no-repeat;
     background-size: 0% 2px;
     background-position: 0 100%;
-    transition: background-size 0.3s ease;
+    transition: background-size 0.35s var(--ease-out-expo);
   }
   .link-sweep:hover,
   .link-sweep:focus-visible {
     background-size: 100% 2px;
   }
-  @media (prefers-reduced-motion: reduce) {
-    .link-sweep {
-      transition: none;
-    }
+
+  .status-pulse {
+    animation: status-pulse 2.4s ease-in-out infinite;
+  }
+  .float-slow {
+    animation: float-slow 6s ease-in-out infinite;
   }
 }
 
-/* pulsing status dot */
 @keyframes status-pulse {
   0%,
   100% {
     opacity: 1;
+    box-shadow: 0 0 0 0 oklch(0.74 0.22 46 / 0.6);
   }
   50% {
-    opacity: 0.35;
+    opacity: 0.6;
+    box-shadow: 0 0 0 6px oklch(0.74 0.22 46 / 0);
   }
 }
 
-.status-pulse {
-  animation: status-pulse 2.4s ease-in-out infinite;
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ─── Preloader (first visit per session, JS + motion only) ─── */
+.preloader {
+  display: none;
+}
+html[data-preload] .preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+  animation: preloader-failsafe 0.01s 3s forwards;
+}
+html[data-preload] .preloader.preloader-out {
+  clip-path: inset(0 0 100% 0);
+}
+@keyframes preloader-failsafe {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* ─── Hero handover: DOM heading ↔ particle twin ─── */
+.hero-name [data-line] {
+  transition: opacity 0.9s ease;
+}
+html[data-particles] .hero-name [data-line] {
+  opacity: 0;
+}
+.particles-hint {
+  opacity: 0;
+  transition: opacity 0.6s ease 0.4s;
+}
+html[data-particles] .particles-hint {
+  opacity: 1;
+}
+.scroll-cue {
+  animation: scroll-cue 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .status-pulse {
+  .scroll-cue,
+  .status-pulse,
+  .float-slow,
+  .ember-border::after {
     animation: none;
+  }
+  .link-sweep {
+    transition: none;
   }
 }
 
 ::selection {
-  background: oklch(0.72 0.19 50 / 0.4);
-  color: oklch(0.97 0.005 75);
+  background: oklch(0.74 0.22 46 / 0.45);
+  color: oklch(0.98 0.005 75);
 }

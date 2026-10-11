@@ -96,13 +96,18 @@ export default async function RootLayout({ children, params }: LayoutProps) {
   }
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${bricolage.variable} ${schibsted.variable} ${commitMono.variable} font-sans antialiased`}
       >
         {/* Marks JS availability before paint: reveal targets are only
             hidden for the entrance animation when this attribute exists. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.dataset.js=''" }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "var d=document.documentElement;d.dataset.js='';try{if(!sessionStorage.getItem('jrm-pre')&&!sessionStorage.getItem('skip-anim')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.dataset.preload=''}catch(e){}",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

@@ -2,6 +2,8 @@ import Link from "next/link"
 import { ui, tr, type Locale } from "@/content"
 import { LocaleSwitcher } from "@/components/locale-switcher"
 import { SkipButton } from "@/components/editorial/skip-button"
+import { AchievementsBadge } from "@/components/play/achievements"
+import { TerminalButton } from "@/components/play/terminal-button"
 
 export function Header({ locale }: { locale: Locale }) {
   const navItems = [
@@ -14,28 +16,35 @@ export function Header({ locale }: { locale: Locale }) {
   ]
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex h-13 max-w-5xl items-center gap-4 px-4">
+    <header className="fixed inset-x-3 top-3 z-50 sm:inset-x-5 sm:top-4">
+      <div className="panel mx-auto flex h-14 max-w-6xl items-center gap-4 rounded-xl px-3 sm:px-4">
         <Link
           href={`/${locale}`}
-          className="flex shrink-0 items-baseline gap-1.5 font-display text-base font-extrabold tracking-tight text-foreground transition-colors hover:text-primary"
+          className="group flex shrink-0 items-baseline gap-1 font-display text-lg font-extrabold tracking-tight text-foreground"
         >
           JRM
-          <span className="size-1.5 translate-y-px bg-primary" aria-hidden="true" />
+          <span
+            className="bg-ember size-2 rounded-full shadow-[0_0_10px_var(--ember)] transition-transform duration-500 group-hover:scale-150"
+            aria-hidden="true"
+          />
         </Link>
-        <nav className="ml-auto hidden items-center gap-5 lg:flex" aria-label="Main">
+        <nav className="ml-auto hidden items-center gap-1 lg:flex" aria-label="Main">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase transition-colors hover:text-primary"
+              className="rounded-md px-2.5 py-1.5 font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase transition-colors hover:bg-primary/10 hover:text-primary"
             >
               {item.label}
             </a>
           ))}
         </nav>
-        <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0">
-          <SkipButton label={tr(ui.skipAnimation, locale)} />
+        <div className="ml-auto flex shrink-0 items-center gap-1.5 lg:ml-2">
+          <TerminalButton label={tr(ui.play.terminal, locale)} />
+          <AchievementsBadge />
+          <span className="hidden sm:block">
+            <SkipButton label={tr(ui.skipAnimation, locale)} />
+          </span>
           <LocaleSwitcher locale={locale} />
         </div>
       </div>
